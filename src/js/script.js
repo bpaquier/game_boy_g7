@@ -12,14 +12,18 @@ function game() {
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
   let apparitionBallTemplate;
+  let apparitionDogTemplate;
 
   let crabRandomApparitionTemplate;
-  let treeRandomApparition;
+  let treeRandomApparitionTemplate;
+  let ballRandomApparitionTemplate;
+  let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
 
   (function play() {
     appearRandomTree();
+    appearRandomCrab();
     addBrontis();
     moveBrontis();
 
@@ -30,16 +34,28 @@ function game() {
         appearRandomCrab,
         getRandomNumber(1000, 3000)
       );
-    }, 4000);
+    }, 6000);
 
     appartionTreeTemplate = setInterval(function() {
-      treeRandomApparition = setTimeout(
+      treeRandomApparitionTemplate = setTimeout(
         appearRandomTree,
         getRandomNumber(3000, 7000)
       );
     }, 10000);
 
-    apparitionBallTemplate = setInterval(appearRandomBall, 10000);
+    apparitionBallTemplate = setInterval(function() {
+      ballRandomApparitionTemplate = setTimeout(
+        appearRandomBall,
+        getRandomNumber(3000, 5000)
+      );
+    }, 10000);
+
+    apparitionDogTemplate = setInterval(function() {
+      dogRandomApparitionTemplate = setTimeout(
+        appearRandomDog,
+        getRandomNumber(2000, 4000)
+      );
+    }, 10000);
   })();
 
   function addBrontis() {
@@ -112,7 +128,7 @@ function game() {
     $gameArea.appendChild($crab);
     setInterval(function() {
       oxo.animation.move($crab, 'left', 1, true);
-    }, 8);
+    }, 10);
     oxo.elements.onLeaveScreenOnce(
       $crab,
       function() {
@@ -155,5 +171,23 @@ function game() {
       },
       true
     );
+    brontisHitElt($ball);
+  }
+
+  function appearRandomDog() {
+    const $dog = document.createElement('div');
+    $dog.classList.add('dog');
+    $gameArea.appendChild($dog);
+    setInterval(function() {
+      oxo.animation.move($dog, 'left', 1, true);
+    }, 4);
+    oxo.elements.onLeaveScreenOnce(
+      $dog,
+      function() {
+        $dog.remove();
+      },
+      true
+    );
+    brontisHitElt($dog);
   }
 }
