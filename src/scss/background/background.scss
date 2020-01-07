@@ -22,3 +22,15 @@
   height: 75px;
   background-color: blue;
 }
+
+.tree{
+  position: absolute;
+  left: $game-area-width - 10;
+  bottom: $ground-height;
+  height: 350px;
+  width: 200px;
+  background-image: url('/img/coco.png');
+  background-size: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
