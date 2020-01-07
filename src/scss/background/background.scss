@@ -6,6 +6,7 @@
   border: 1px solid black;
   overflow: hidden;
   background-color: skyblue;
+  z-index: -2;
 }
 
 .game-area__life {
@@ -36,7 +37,7 @@
 }
 
 .game-area__trees.trees.is-moving {
-  animation: move 30s linear forwards;
+  animation: move-to-left 30s linear forwards;
 }
 
 .trees {
@@ -66,4 +67,19 @@
 .trees.tree__random {
   left: $game-area-width - 10;
   background-image: url('/img/coco.png');
+}
+
+.boat {
+  position: absolute;
+  left: 0;
+  bottom: $ground-height + 75;
+  height: 50px;
+  width: 50px;
+  transform: rotateY(180deg);
+  background-image: url('/img/Bateau.png');
+  background-size: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  animation: move-to-right 400s linear;
+  z-index: -1;
 }

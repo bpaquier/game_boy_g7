@@ -7,12 +7,21 @@
   }
 }
 
-@keyframes move {
+@keyframes move-to-left {
   form {
     transform: none;
   }
   to {
-    transform: translateX(-1000px);
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes move-to-right {
+  form {
+    transform: none;
+  }
+  to {
+    transform: translateX(+100vw);
   }
 }
 
@@ -21,7 +30,7 @@
     transform: none;
   }
   to {
-    transform: rotateZ(-380deg);
+    transform: rotateZ(-360deg);
   }
 }
 

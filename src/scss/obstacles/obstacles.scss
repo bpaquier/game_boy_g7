@@ -16,7 +16,7 @@
   left: $game-area-width - 10;
   height: 50px;
   width: 50px;
-  border-radius: 50%;
+  border-radius: 50px;
   background-image: url('/img/ballon.png');
   background-size: 100%;
   background-position: bottom;
@@ -26,10 +26,10 @@
 
 .dog {
   position: absolute;
-  bottom: $ground-height + 60;
+  bottom: $ground-height + 85;
   left: $game-area-width - 10;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   background-image: url('/img/shiba-qui-vole.gif');
   background-size: 100%;
