@@ -8,12 +8,14 @@ function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
+  const $squeeze = document.querySelector('.squeeze');
   const $life = document.querySelector('.game-area__life');
 
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
   let apparitionBallTemplate;
   let apparitionDogTemplate;
+  let itemsMovingTemplate;
 
   let crabRandomApparitionTemplate;
   let treeRandomApparitionTemplate;
@@ -21,20 +23,23 @@ function game() {
   let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
-  let life = 0;
+  let life = 4;
 
   (function play() {
     appearRandomTree();
     appearRandomCrab();
     addBrontis();
-    moveBrontis();
+    addSqueez();
+    setTimeout(moveBrontis, 3000);
     itemsApparition();
+    brontisCatchSqueeze();
 
     $originalTrees.classList.add('is-moving');
     $life.innerHTML = 'Life : ' + life;
   })();
 
   function itemsApparition() {
+    appearRandomBoat();
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
         appearRandomCrab,
@@ -47,24 +52,24 @@ function game() {
         appearRandomTree,
         getRandomNumber(3000, 7000)
       );
-    }, 10000);
+    }, 8000);
 
     apparitionBallTemplate = setInterval(function() {
       ballRandomApparitionTemplate = setTimeout(
         appearRandomBall,
         getRandomNumber(3000, 5000)
       );
-    }, 10000);
+    }, 8000);
 
     apparitionDogTemplate = setInterval(function() {
       dogRandomApparitionTemplate = setTimeout(
         appearRandomDog,
         getRandomNumber(2000, 4000)
       );
-    }, 10000);
+    }, 11000);
   }
 
-  function clearAllTemplate() {
+  function clearAllIntervalAndTimeout() {
     clearInterval(apparitionCrabTemplate);
     clearInterval(appartionTreeTemplate);
     clearInterval(apparitionBallTemplate);
@@ -78,6 +83,10 @@ function game() {
 
   function addBrontis() {
     $brontis.classList.add('is-visible');
+  }
+
+  function addSqueez() {
+    $squeeze.classList.add('is-visible');
   }
 
   function moveBrontis() {
@@ -98,10 +107,10 @@ function game() {
           }
           break;
         case 'right':
-          oxo.animation.move($brontis, 'right', 5, true);
+          oxo.animation.move($brontis, 'right', 4, true);
           break;
         case 'left':
-          oxo.animation.move($brontis, 'left', 5, true);
+          oxo.animation.move($brontis, 'left', 4, true);
           break;
       }
     });
@@ -126,6 +135,14 @@ function game() {
     });
   }
 
+  function brontisCatchSqueeze() {
+    oxo.elements.onCollisionWithElement($brontis, $squeeze, function() {
+      console.log('FIGHT');
+      clearAllIntervalAndTimeout();
+      freezeTrees();
+    });
+  }
+
   function brontisIsJunping() {
     if (!$brontis.classList.contains('is-jumping')) {
       $brontis.classList.add('is-jumping');
@@ -146,7 +163,7 @@ function game() {
   function brontisIsDead() {
     $brontis.classList.add('is-dead');
     brontisIsAlive = false;
-    clearAllTemplate();
+    clearAllIntervalAndTimeout();
   }
 
   function getRandomNumber(min, max) {
@@ -157,7 +174,7 @@ function game() {
     return number;
   }
 
-  function appearRandomCrab(e) {
+  function appearRandomCrab() {
     const $crab = document.createElement('div');
     $crab.classList.add('crab');
     $gameArea.appendChild($crab);
@@ -177,8 +194,9 @@ function game() {
   function appearRandomTree() {
     const $tree = document.createElement('div');
     $tree.classList.add('trees', 'tree__random');
+    $tree.style.width = getRandomNumber(150, 350) + 'px';
     $gameArea.appendChild($tree);
-    setInterval(function() {
+    itemsMovingTemplate = setInterval(function() {
       oxo.animation.move($tree, 'left', 1, true);
     }, 30);
     oxo.elements.onLeaveScreenOnce(
@@ -188,6 +206,14 @@ function game() {
       },
       true
     );
+  }
+
+  function freezeTrees() {
+    document.querySelectorAll('.tree__random').forEach(function(tree) {
+      var position = oxo.animation.getPosition(tree);
+      tree.style.transform = 'none';
+      tree.style.left = 1290 + position.x + 'px';
+    });
   }
 
   function appearRandomBall() {
@@ -238,5 +264,4 @@ function game() {
       true
     );
   }
-  appearRandomBoat();
 }
