@@ -22,5 +22,7 @@
     "url": "https://github.com/bastien17-dev/game_boy/issues"
   },
   "homepage": "https://github.com/bastien17-dev/game_boy#readme",
-  "dependencies": {}
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
 }
