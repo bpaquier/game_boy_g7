@@ -2,7 +2,11 @@
   position: absolute;
   bottom: $ground-height;
   left: $game-area-width - 10;
-  height: 20px;
-  width: 20px;
-  background-color: red;
+  height: 50px;
+  width: 50px;
+  background-image: url('/img/red-craby.gif');
+  background-size: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+
 }
