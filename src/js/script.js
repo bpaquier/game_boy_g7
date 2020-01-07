@@ -1,8 +1,8 @@
-oxo.inputs.listenKeyOnce('enter', function() {
+//oxo.inputs.listenKeyOnce('enter', function() {
   oxo.screens.loadScreen('game', function() {
     game();
   });
-});
+//});
 
 function game() {
   const $gameArea = document.querySelector('.game-area');
@@ -11,12 +11,14 @@ function game() {
   let apparitionObstaclesTemplate;
   let crabRandomApparitionTemplate;
 
+  let brontisIsInvincible = false;
+
   apparitionObstaclesTemplate = setInterval(function() {
     crabRandomApparitionTemplate = setTimeout(
       appearRandomElement,
       getRandomNumberForObstacles()
     );
-  }, 2000);
+  }, 3000);
 
   addBrontis();
   moveBrontis();
@@ -94,5 +96,33 @@ function game() {
       console.log('ouch');
       $brontis.classList.add('is-dead');
     });
+  }
+
+  function brontisAie() {
+    if (!brontisIsInvincible) {
+      let pikaPositionX = $pikachu.offsetLeft + $pikachu.offsetWidth - 10;
+      let pikaPositionY = $pikachu.offsetTop + $pikachu.offsetHeight - 5;
+  
+      document.querySelectorAll('.game__cactus').forEach(function(cactus) {
+        if (
+          cactus.offsetLeft < pikaPositionX &&
+          $pikachu.offsetLeft + 20 < cactus.offsetLeft + cactus.offsetWidth &&
+          cactus.offsetTop < pikaPositionY
+        ) {
+          if (lifes > 0) {
+            lifes--;
+            pikaInvicible = true;
+            $pikachu.classList.add('is-flashing');
+            $showLife.innerHTML = 'Life : ' + lifes;
+            setTimeout(function() {
+              $pikachu.classList.remove('is-flashing');
+              pikaInvicible = false;
+            }, 3000);
+          } else {
+            reset();
+          }
+        }
+      });
+    }
   }
 }
