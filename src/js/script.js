@@ -1,27 +1,40 @@
 //oxo.inputs.listenKeyOnce('enter', function() {
-  oxo.screens.loadScreen('game', function() {
-    game();
-  });
+oxo.screens.loadScreen('game', function() {
+  game();
+});
 //});
 
 function game() {
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
 
-  let apparitionObstaclesTemplate;
+  let apparitionCrabTemplate;
+  let appartionTreeTemplate;
+
   let crabRandomApparitionTemplate;
+  let treeRandomApparition;
 
   let brontisIsInvincible = false;
 
-  apparitionObstaclesTemplate = setInterval(function() {
-    crabRandomApparitionTemplate = setTimeout(
-      appearRandomElement,
-      getRandomNumberForObstacles()
-    );
-  }, 4000);
+  (function play() {
+    appearRandomTree();
+    addBrontis();
+    moveBrontis();
 
-  addBrontis();
-  moveBrontis();
+    apparitionCrabTemplate = setInterval(function() {
+      crabRandomApparitionTemplate = setTimeout(
+        appearRandomCrab,
+        getRandomNumber(1000, 3000)
+      );
+    }, 4000);
+
+    appartionTreeTemplate = setInterval(function() {
+      treeRandomApparition = setTimeout(
+        appearRandomTree,
+        getRandomNumber(3000, 7000)
+      );
+    }, 10000);
+  })();
 
   function addBrontis() {
     $brontis.classList.add('is-visible');
@@ -44,14 +57,20 @@ function game() {
             brontisIsBendingDown();
           }
           break;
-          case 'right':
-            oxo.animation.move($brontis, 'right', 5, true);
-            break;
-            case 'left':
-            oxo.animation.move($brontis, 'left', 5, true);
-            break;
-
+        case 'right':
+          oxo.animation.move($brontis, 'right', 5, true);
+          break;
+        case 'left':
+          oxo.animation.move($brontis, 'left', 5, true);
+          break;
       }
+    });
+  }
+
+  function brontisHitElt(element) {
+    oxo.elements.onCollisionWithElement($brontis, element, function() {
+      console.log('touch');
+      $brontis.classList.add('is-dead');
     });
   }
 
@@ -73,36 +92,44 @@ function game() {
     }
   }
 
-  function getRandomNumberForObstacles() {
+  function getRandomNumber(min, max) {
     let number;
     do {
-      number = Math.floor(Math.random() * 23) * 100;
-    } while (number < 900);
+      number = Math.floor(Math.random() * max);
+    } while (number < min);
     return number;
   }
 
-  function appearRandomElement(elt) {
-    const $randomElt = document.createElement('div');
-    $randomElt.classList.add('element');
-    $gameArea.appendChild($randomElt);
+  function appearRandomCrab(e) {
+    const $crab = document.createElement('div');
+    $crab.classList.add('crab');
+    $gameArea.appendChild($crab);
     setInterval(function() {
-      oxo.animation.move($randomElt, 'left', 1, true);
+      oxo.animation.move($crab, 'left', 1, true);
     }, 8);
     oxo.elements.onLeaveScreenOnce(
-      $randomElt,
+      $crab,
       function() {
-        $randomElt.remove();
+        $crab.remove();
       },
       true
     );
-    brontisHitElt($randomElt)
+    brontisHitElt($crab);
   }
 
-  function brontisHitElt(element) {
-    oxo.elements.onCollisionWithElement($brontis, element, function() {
-      console.log('touch');
-      $brontis.classList.add('is-dead');
-    });
+  function appearRandomTree() {
+    const $tree = document.createElement('div');
+    $tree.classList.add('tree');
+    $gameArea.appendChild($tree);
+    setInterval(function() {
+      oxo.animation.move($tree, 'left', 1, true);
+    }, 30);
+    oxo.elements.onLeaveScreenOnce(
+      $tree,
+      function() {
+        $tree.remove();
+      },
+      true
+    );
   }
-
 }
