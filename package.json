@@ -1,5 +1,5 @@
 {
-  "name": "sass",
+  "name": "oxo",
   "version": "1.0.0",
   "description": "This is a boilerplate repository using `OXO`, a minimalist game library to handle common actions in games. This is not optimized for production and uses purposefully simplified patterns for an educational purpose.",
   "main": "index.js",
@@ -22,5 +22,7 @@
     "url": "https://github.com/bastien17-dev/game_boy/issues"
   },
   "homepage": "https://github.com/bastien17-dev/game_boy#readme",
-  "dependencies": {}
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
 }
