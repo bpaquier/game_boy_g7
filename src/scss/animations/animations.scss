@@ -24,3 +24,30 @@
     transform: rotateZ(-380deg);
   }
 }
+
+@keyframes is-flashing {
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes loose {
+  40% {
+    bottom: $ground-height + 100;
+  }
+  to {
+    bottom: $ground-height - 300;
+  }
+}

@@ -8,6 +8,7 @@ function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
+  const $life = document.querySelector('.game-area__life');
 
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
@@ -20,6 +21,7 @@ function game() {
   let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
+  let life = 5;
 
   (function play() {
     appearRandomTree();
@@ -28,6 +30,7 @@ function game() {
     moveBrontis();
 
     $originalTrees.classList.add('is-moving');
+    $life.innerHTML = 'Life : ' + life;
 
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
@@ -91,8 +94,20 @@ function game() {
 
   function brontisHitElt(element) {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
-      console.log('touch');
-      $brontis.classList.add('is-dead');
+      if (!brontisIsInvincible) {
+        if (life > 0) {
+          life--;
+          brontisIsInvincible = true;
+          $brontis.classList.add('is-flashing');
+          $life.innerHTML = 'Life : ' + life;
+          setTimeout(function() {
+            $brontis.classList.remove('is-flashing');
+            brontisIsInvincible = false;
+          }, 3000);
+        } else {
+          $brontis.classList.add('is-dead');
+        }
+      }
     });
   }
 
