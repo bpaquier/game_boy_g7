@@ -18,7 +18,7 @@ function game() {
       appearRandomElement,
       getRandomNumberForObstacles()
     );
-  }, 3000);
+  }, 4000);
 
   addBrontis();
   moveBrontis();
@@ -44,6 +44,13 @@ function game() {
             brontisIsBendingDown();
           }
           break;
+          case 'right':
+            oxo.animation.move($brontis, 'right', 5, true);
+            break;
+            case 'left':
+            oxo.animation.move($brontis, 'left', 5, true);
+            break;
+
       }
     });
   }
@@ -79,8 +86,8 @@ function game() {
     $randomElt.classList.add('element');
     $gameArea.appendChild($randomElt);
     setInterval(function() {
-      oxo.animation.move($randomElt, 'left', 10, true);
-    }, 100);
+      oxo.animation.move($randomElt, 'left', 1, true);
+    }, 8);
     oxo.elements.onLeaveScreenOnce(
       $randomElt,
       function() {
@@ -88,41 +95,14 @@ function game() {
       },
       true
     );
-    brontisHitElt($randomElt);
+    brontisHitElt($randomElt)
   }
 
   function brontisHitElt(element) {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
-      console.log('ouch');
+      console.log('touch');
       $brontis.classList.add('is-dead');
     });
   }
 
-  function brontisAie() {
-    if (!brontisIsInvincible) {
-      let pikaPositionX = $pikachu.offsetLeft + $pikachu.offsetWidth - 10;
-      let pikaPositionY = $pikachu.offsetTop + $pikachu.offsetHeight - 5;
-  
-      document.querySelectorAll('.game__cactus').forEach(function(cactus) {
-        if (
-          cactus.offsetLeft < pikaPositionX &&
-          $pikachu.offsetLeft + 20 < cactus.offsetLeft + cactus.offsetWidth &&
-          cactus.offsetTop < pikaPositionY
-        ) {
-          if (lifes > 0) {
-            lifes--;
-            pikaInvicible = true;
-            $pikachu.classList.add('is-flashing');
-            $showLife.innerHTML = 'Life : ' + lifes;
-            setTimeout(function() {
-              $pikachu.classList.remove('is-flashing');
-              pikaInvicible = false;
-            }, 3000);
-          } else {
-            reset();
-          }
-        }
-      });
-    }
-  }
 }
