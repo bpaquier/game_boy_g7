@@ -1,0 +1,15 @@
+.squeeze {
+  visibility: hidden;
+  position: absolute;
+  bottom: $ground-height;
+  left: 700px;
+  width: 70px;
+  height: 120px;
+  background-color: red;
+  animation: squeeze-move 3s linear forwards;
+  z-index: 1;
+}
+
+.squeeze.is-visible {
+  visibility: visible;
+}

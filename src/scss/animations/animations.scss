@@ -8,27 +8,23 @@
 }
 
 @keyframes move-to-left {
-  form {
-    transform: none;
-  }
   to {
     transform: translateX(-100vw);
   }
 }
 
 @keyframes move-to-right {
-  form {
-    transform: none;
-  }
   to {
     transform: translateX(+100vw);
   }
 }
 
-@keyframes rotation {
-  from {
-    transform: none;
+@keyframes squeeze-move {
+  to {
+    left: $game-area-width - 100;
   }
+}
+@keyframes rotation {
   to {
     transform: rotateZ(-360deg);
   }
