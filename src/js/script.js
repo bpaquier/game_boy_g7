@@ -30,7 +30,7 @@ function game() {
     appearRandomCrab();
     addBrontis();
     addSqueez();
-    setTimeout(moveBrontis, 3000);
+    setTimeout(moveBrontis, 2000);
     itemsApparition();
     brontisCatchSqueeze();
 
