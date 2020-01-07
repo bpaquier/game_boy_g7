@@ -21,17 +21,20 @@ function game() {
   let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
-  let life = 5;
+  let life = 0;
 
   (function play() {
     appearRandomTree();
     appearRandomCrab();
     addBrontis();
     moveBrontis();
+    itemsApparition();
 
     $originalTrees.classList.add('is-moving');
     $life.innerHTML = 'Life : ' + life;
+  })();
 
+  function itemsApparition() {
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
         appearRandomCrab,
@@ -59,7 +62,19 @@ function game() {
         getRandomNumber(2000, 4000)
       );
     }, 10000);
-  })();
+  }
+
+  function clearAllTemplate() {
+    clearInterval(apparitionCrabTemplate);
+    clearInterval(appartionTreeTemplate);
+    clearInterval(apparitionBallTemplate);
+    clearInterval(apparitionDogTemplate);
+
+    clearTimeout(crabRandomApparitionTemplate);
+    clearTimeout(treeRandomApparitionTemplate);
+    clearTimeout(ballRandomApparitionTemplate);
+    clearTimeout(dogRandomApparitionTemplate);
+  }
 
   function addBrontis() {
     $brontis.classList.add('is-visible');
@@ -105,7 +120,7 @@ function game() {
             brontisIsInvincible = false;
           }, 3000);
         } else {
-          $brontis.classList.add('is-dead');
+          brontisIsDead();
         }
       }
     });
@@ -127,6 +142,11 @@ function game() {
         $brontis.classList.remove('is-bending-down');
       }, 800);
     }
+  }
+  function brontisIsDead() {
+    $brontis.classList.add('is-dead');
+    brontisIsAlive = false;
+    clearAllTemplate();
   }
 
   function getRandomNumber(min, max) {
@@ -205,4 +225,18 @@ function game() {
     );
     brontisHitElt($dog);
   }
+
+  function appearRandomBoat() {
+    const $boat = document.createElement('div');
+    $boat.classList.add('boat');
+    $gameArea.appendChild($boat);
+    oxo.elements.onLeaveScreenOnce(
+      $boat,
+      function() {
+        $boat.remove();
+      },
+      true
+    );
+  }
+  appearRandomBoat();
 }

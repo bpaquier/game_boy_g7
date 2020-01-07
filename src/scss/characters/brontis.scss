@@ -1,10 +1,10 @@
 .brontis {
   visibility: hidden;
   position: absolute;
-  width: 80px;
+  width: 70px;
   height: 120px;
   bottom: $ground-height;
-  background-image: url('/img/Brontis-Marche.gif');
+  background-image: url('/img/Brontis-marche.gif');
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -17,10 +17,14 @@
 
 .brontis.is-jumping {
   animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+  background-image: url('/img/Brontis-saut.png');
+  width: 70px;
 }
 
 .brontis.is-bending-down {
-  height: 25px;
+  background-image: url('/img/Brontis-bas.gif');
+  width: 110px;
+  height: 75px;
 }
 
 .brontis.is-flashing {
@@ -33,5 +37,6 @@
 }
 
 .brontis.is-dead {
-  animation: loose 0.8s ease-out forwards;
+  animation: loose 1s ease-out forwards;
+  background-image: url('/img/Brontis-dead.png');
 }
