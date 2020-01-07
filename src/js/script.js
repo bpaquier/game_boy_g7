@@ -5,11 +5,13 @@ oxo.screens.loadScreen('game', function() {
 //});
 
 function game() {
+  const $originalTrees = document.querySelector('.game-area__trees');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
 
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
+  let apparitionBallTemplate;
 
   let crabRandomApparitionTemplate;
   let treeRandomApparition;
@@ -20,6 +22,8 @@ function game() {
     appearRandomTree();
     addBrontis();
     moveBrontis();
+
+    $originalTrees.classList.add('is-moving');
 
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
@@ -34,6 +38,8 @@ function game() {
         getRandomNumber(3000, 7000)
       );
     }, 10000);
+
+    apparitionBallTemplate = setInterval(appearRandomBall, 10000);
   })();
 
   function addBrontis() {
@@ -119,7 +125,7 @@ function game() {
 
   function appearRandomTree() {
     const $tree = document.createElement('div');
-    $tree.classList.add('tree');
+    $tree.classList.add('trees', 'tree__random');
     $gameArea.appendChild($tree);
     setInterval(function() {
       oxo.animation.move($tree, 'left', 1, true);
@@ -128,6 +134,24 @@ function game() {
       $tree,
       function() {
         $tree.remove();
+      },
+      true
+    );
+  }
+
+  function appearRandomBall() {
+    const $ball = document.createElement('div');
+    $ball.classList.add('ball');
+    $gameArea.appendChild($ball);
+    let positionX = $ball.offsetLeft;
+    setInterval(function() {
+      positionX -= 1;
+      $ball.style.left = positionX + 'px';
+    }, 6);
+    oxo.elements.onLeaveScreenOnce(
+      $ball,
+      function() {
+        $ball.remove();
       },
       true
     );

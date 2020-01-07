@@ -6,3 +6,21 @@
     bottom: $ground-height + 80;
   }
 }
+
+@keyframes move {
+  form {
+    transform: none;
+  }
+  to {
+    transform: translateX(-1000px);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: none;
+  }
+  to {
+    transform: rotateZ(-380deg);
+  }
+}
