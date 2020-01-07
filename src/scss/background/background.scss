@@ -1,0 +1,24 @@
+.game-area {
+  margin: auto;
+  position: relative;
+  width: $game-area-width;
+  height: 500px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.game-area__ground {
+  position: absolute;
+  bottom: 0;
+  width: $game-area-width;
+  height: $ground-height;
+  background-color: gold;
+}
+
+.game-area__sea {
+  position: absolute;
+  bottom: $ground-height;
+  width: $game-area-width;
+  height: 75px;
+  background-color: blue;
+}

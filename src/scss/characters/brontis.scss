@@ -1,0 +1,21 @@
+.brontis {
+  visibility: hidden;
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  bottom: $ground-height;
+  background-color: black;
+  z-index: 1;
+}
+
+.brontis.is-visible {
+  visibility: visible;
+}
+
+.brontis.is-jumping {
+  animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+}
+
+.brontis.is-bending-down {
+  height: 25px;
+}

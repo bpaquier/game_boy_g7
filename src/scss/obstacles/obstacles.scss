@@ -1,0 +1,8 @@
+.element {
+  position: absolute;
+  bottom: $ground-height;
+  left: $game-area-width - 10;
+  height: 20px;
+  width: 20px;
+  background-color: red;
+}

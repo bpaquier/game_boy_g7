@@ -1,0 +1,8 @@
+@keyframes jump {
+  from {
+    bottom: $ground-height;
+  }
+  to {
+    bottom: $ground-height + 80;
+  }
+}
