@@ -1,0 +1,71 @@
+@keyframes defiler {
+  25% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50vh);
+  }
+  100% {
+    transform: translateY(-170vh);
+  }
+}
+
+.header_end {
+  background-color: black;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.victoire {
+  color: green;
+  font-size: 5em;
+}
+
+.rejouer {
+  margin-top: 20px;
+  color: green;
+  text-decoration: none;
+  width: 226.35px;
+  height: 40px;
+  background-color: transparent;
+  border: transparent;
+}
+
+.quitter {
+  margin-top: 20px;
+  color: red;
+  text-decoration: none;
+  width: 226.35px;
+  height: 40px;
+  background-color: transparent;
+  border: transparent;
+}
+
+.credits {
+  margin: 100px 50px 0px 50px;
+  text-align: center;
+  width: 1000vh;
+}
+
+.textefixe p {
+  font-size: 3em;
+  line-height: 100px;
+  animation: defiler 20s forwards;
+}
+
+.credit p {
+  animation: defiler 20s forwards;
+  font-size: 3em;
+  line-height: 300px;
+}
+
+.equipe {
+  margin-top: 200px;
+  animation: defiler 20s forwards;
+  font-weight: bold;
+}
