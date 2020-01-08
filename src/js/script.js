@@ -1,18 +1,22 @@
-//oxo.inputs.listenKeyOnce('enter', function() {
-oxo.screens.loadScreen('game', function() {
-  game();
+
+oxo.inputs.listenKeyOnce("enter", function() {
+  oxo.screens.loadScreen("game", function() {
+    game();
+  });
+
 });
 //});
 
 function endFunction() {
-  oxo.inputs.listenKeyOnce('enter', function() {
-    oxo.screens.loadScreen('game', function() {
+  oxo.inputs.listenKeyOnce("enter", function() {
+    oxo.screens.loadScreen("game", function() {
       game();
     });
   });
 }
 
 function game() {
+
   const $originalTrees = document.querySelector('.game-area__trees');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
@@ -44,8 +48,10 @@ function game() {
     addSqueez();
     brontisCatchSqueeze();
 
+
     $originalTrees.classList.add('is-moving');
     $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+
   })();
 
   function itemsApparition() {
@@ -92,23 +98,24 @@ function game() {
   }
 
   function addSqueez() {
-    $squeeze.classList.add('is-visible');
+    $squeeze.classList.add("is-visible");
   }
 
   function moveBrontis() {
     $brontis.classList.add('is-running');
     oxo.inputs.listenArrowKeys(function(key) {
       switch (key) {
-        case 'up':
+        case "up":
           brontisIsJunping();
           break;
-        case 'down':
-          if ($brontis.classList.contains('is-jumping')) {
-            $brontis.classList.remove('is-jumping');
+        case "down":
+          if ($brontis.classList.contains("is-jumping")) {
+            $brontis.classList.remove("is-jumping");
           } else {
             brontisIsBendingDown();
           }
           break;
+
         case 'right':
           oxo.animation.move($brontis, 'right', 4, true);
           if (!$brontis.classList.contains('is-running')) {
@@ -120,14 +127,17 @@ function game() {
           if (!$brontis.classList.contains('is-running')) {
             $brontis.classList.add('is-running');
           }
+
           break;
       }
     });
-    window.addEventListener('keyup', function(key) {
+    window.addEventListener("keyup", function(key) {
       switch (key.keyCode) {
         case 40:
+
           $brontis.classList.remove('is-bending-down');
           break;
+
       }
     });
   }
@@ -138,10 +148,12 @@ function game() {
         if (brontisLifes > 0) {
           brontisLifes--;
           brontisIsInvincible = true;
+
           $brontis.classList.add('is-flashing');
           $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+
           setTimeout(function() {
-            $brontis.classList.remove('is-flashing');
+            $brontis.classList.remove("is-flashing");
             brontisIsInvincible = false;
           }, 3000);
         } else {
@@ -153,6 +165,7 @@ function game() {
 
   function brontisCatchSqueeze() {
     oxo.elements.onCollisionWithElement($brontis, $squeeze, function() {
+
       if (!isFighting) {
         console.log('FIGHT');
         clearAllIntervalAndTimeout();
@@ -163,25 +176,25 @@ function game() {
   }
 
   function brontisIsJunping() {
-    if (!$brontis.classList.contains('is-jumping')) {
-      $brontis.classList.add('is-jumping');
+    if (!$brontis.classList.contains("is-jumping")) {
+      $brontis.classList.add("is-jumping");
       setTimeout(function() {
-        $brontis.classList.remove('is-jumping');
+        $brontis.classList.remove("is-jumping");
       }, 1000);
     }
   }
 
   function brontisIsBendingDown() {
-    if (!$brontis.classList.add('is-bending-down')) {
-      $brontis.classList.add('is-bending-down');
+    if (!$brontis.classList.add("is-bending-down")) {
+      $brontis.classList.add("is-bending-down");
     }
   }
   function brontisIsDead() {
-    $brontis.classList.add('is-dead');
+    $brontis.classList.add("is-dead");
     brontisIsAlive = false;
     clearAllIntervalAndTimeout();
     setTimeout(function() {
-      oxo.screens.loadScreen('end', function() {
+      oxo.screens.loadScreen("end", function() {
         endFunction();
       });
     }, 2000);
@@ -196,11 +209,12 @@ function game() {
   }
 
   function appearRandomCrab() {
+
     const $crab = document.createElement('div');
     $crab.classList.add('enemy', 'crab');
     $gameArea.appendChild($crab);
     setInterval(function() {
-      oxo.animation.move($crab, 'left', 1, true);
+      oxo.animation.move($crab, "left", 1, true);
     }, 10);
     oxo.elements.onLeaveScreenOnce(
       $crab,
@@ -213,9 +227,9 @@ function game() {
   }
 
   function appearRandomTree() {
-    const $tree = document.createElement('div');
-    $tree.classList.add('trees', 'tree__random');
-    $tree.style.width = getRandomNumber(150, 350) + 'px';
+    const $tree = document.createElement("div");
+    $tree.classList.add("trees", "tree__random");
+    $tree.style.width = getRandomNumber(150, 350) + "px";
     $gameArea.appendChild($tree);
     setInterval(function() {
       oxo.animation.move($tree, 'left', 1, true);
@@ -230,21 +244,22 @@ function game() {
   }
 
   function freezeTrees() {
-    document.querySelectorAll('.tree__random').forEach(function(tree) {
+    document.querySelectorAll(".tree__random").forEach(function(tree) {
       var position = oxo.animation.getPosition(tree);
-      tree.style.transform = 'none';
-      tree.style.left = 1290 + position.x + 'px';
+      tree.style.transform = "none";
+      tree.style.left = 1290 + position.x + "px";
     });
   }
 
   function appearRandomBall() {
+
     const $ball = document.createElement('div');
     $ball.classList.add('enemy', 'ball');
     $gameArea.appendChild($ball);
     let positionX = $ball.offsetLeft;
     setInterval(function() {
       positionX -= 1;
-      $ball.style.left = positionX + 'px';
+      $ball.style.left = positionX + "px";
     }, 6);
     oxo.elements.onLeaveScreenOnce(
       $ball,
@@ -257,11 +272,12 @@ function game() {
   }
 
   function appearRandomDog() {
+
     const $dog = document.createElement('div');
     $dog.classList.add('enemy', 'dog');
     $gameArea.appendChild($dog);
     setInterval(function() {
-      oxo.animation.move($dog, 'left', 1, true);
+      oxo.animation.move($dog, "left", 1, true);
     }, 4);
     oxo.elements.onLeaveScreenOnce(
       $dog,
@@ -274,8 +290,8 @@ function game() {
   }
 
   function appearRandomBoat() {
-    const $boat = document.createElement('div');
-    $boat.classList.add('boat');
+    const $boat = document.createElement("div");
+    $boat.classList.add("boat");
     $gameArea.appendChild($boat);
     oxo.elements.onLeaveScreenOnce(
       $boat,
