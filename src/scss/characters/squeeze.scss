@@ -19,6 +19,7 @@
   left: 800px;
   width: 140px;
   height: 240px;
+  animation: squeeze-move-when-fighting 5s linear infinite;
 }
 
 .squeeze.ready-to-fight.is-dead {
