@@ -1,116 +1,104 @@
-@font-face{
-    font-family: "Spongebob";
-    src: url("../fonts/SpongeboyMeBob.woff") format("woff"), 
-         url("../fonts/SpongeboyMeBob.woff2") format("woff2");
+article {
+  background-image: url('/img/beach-background.png');
+  background-size: 100%;
+  background-position: bottom;
+  font-family: 'Montserrat-regular';
+
+  .how-to {
+    text-align: center;
+    font-size: 4em;
+    padding-top: 0.5em;
+    color: #d4b38d;
+    font-family: 'Spongebob';
+  }
+
+  .text-story {
+    width: 50%;
+    position: relative;
+    padding: 1.5em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: small;
+  }
+
+  .explain-gameplay {
+    display: inline-flex;
+    width: 0;
+    justify-content: space-between;
+  }
+
+  .zone-gameplay1,
+  .zone-gameplay2,
+  .zone-gameplay3 {
+    text-align: center;
+    margin-left: 175px;
+    padding-top: 20px;
+    background-color: rgba(255, 255, 255, 0.301);
+    border-radius: 2em;
+  }
+
+  .text-gameplay {
+    font-size: 1.5em;
+    text-align: center;
+    width: 250px;
+  }
+
+  .img-gameplay1,
+  .img-gameplay4 {
+    width: 12em;
+    padding: 40px 0 10px 0;
+  }
+
+  .img-gameplay2 {
+    width: 8em;
+    padding: 10px 0 10px 0;
+  }
+
+  .img-gameplay3 {
+    width: 12em;
+    padding: 10px 0 10px 0;
+  }
+
+  .key-gameplay1,
+  .key-gameplay2,
+  .key-gameplay3 {
+    text-align: center;
+    margin: auto;
+    display: flex;
+  }
+
+  .key-gameplay1,
+  .key-gameplay2 {
+    width: 5em;
+  }
+
+  .key-gameplay2 {
+    padding-bottom: 1em;
+  }
+
+  .key-gameplay3 {
+    width: 12em;
+    padding-top: 4em;
+  }
+
+  .button-play {
+    padding-top: 3em;
+    text-align: end;
+    width: 1280px;
+    position: absolute;
+  }
+
+  .play {
+    border-radius: 0.5em;
+    width: 6em;
+    height: 2em;
+    text-align: center;
+    background-color: white;
+    font-weight: bold;
+    color: #d4b38d;
+    font-size: 15px;
+    font-family: 'Spongebob';
+    letter-spacing: 0.1em;
+  }
 }
-
-@font-face {
-    font-family: "Montserrat-regular";
-    src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
-}
-
-    article {
-
-        background-image: url("../img/beach-background.png");
-        background-size: 100%;
-        font-family: "Montserrat-regular";
-
-        .how-to {
-            text-align: center;
-            font-size: 4em;
-            padding-top: 0.5em;
-            color: #D4B38D;
-            font-family: "Spongebob";
-        }
-
-        .text-story {
-            width: 50%;
-            position: relative;
-            padding: 1.5em;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: small;
-        }
-
-        .explain-gameplay {
-            display: inline-flex;
-            width: 0;
-            justify-content: space-between;
-        }
-
-        .zone-gameplay1,
-        .zone-gameplay2,
-        .zone-gameplay3 {
-            text-align: center;
-            margin-left: 175px;
-            padding-top: 20px;
-            background-color: rgba(255, 255, 255, 0.301);
-            border-radius: 2em;
-        }
-
-        .text-gameplay {
-            font-size: 1.5em;
-            text-align: center;
-            width: 250px;
-        }
-
-        .img-gameplay1,
-        .img-gameplay4 {
-            width: 12em;
-            padding: 40px 0 10px 0;
-        }
-
-        .img-gameplay2 {
-            width: 8em;
-            padding: 10px 0 10px 0;
-        }
-
-        .img-gameplay3 {
-            width: 12em;
-            padding: 10px 0 10px 0;
-        }
-
-
-        .key-gameplay1,
-        .key-gameplay2,
-        .key-gameplay3 {
-            text-align: center;
-            margin: auto;
-            display: flex;
-        }
-
-        .key-gameplay1,
-        .key-gameplay2 {
-            width: 5em;
-        }
-
-        .key-gameplay2 {
-            padding-bottom: 1em;
-        }
-
-        .key-gameplay3 {
-            width: 12em;
-            padding-top: 4em;
-        }
-
-        .button-play {
-            padding-top: 3em;
-            text-align: end;
-            width: 1280px;
-            position: absolute;
-        }
-
-        .play {
-            border-radius: 0.5em;
-            width: 6em;
-            height: 2em;
-            text-align: center;
-            background-color: white;
-            font-weight: bold;
-            color: #D4B38D;
-            font-size: 15px;
-            font-family: "Spongebob";
-            letter-spacing: 0.1em;
-        }
-    }
