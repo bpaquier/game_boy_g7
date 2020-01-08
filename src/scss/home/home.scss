@@ -1,55 +1,104 @@
-div {
+body {
 
-    .how-to {
-        text-align: center;
-        font-size: 4em;
-        padding: 0.2em;
-        margin-left: 500px;
+    background: rgba(76, 127, 174, 0.856);
 
+    div {
+
+        font-family: Arial;
+
+        .how-to {
+            text-align: center;
+            font-size: 4em;
+            padding: 0.5em;
+            margin-left: 475px;
+            color: #C3B58A;
+        }
+
+        .explain-gameplay {
+            display: inline-flex;
+            width: 0;
+            justify-content: space-between;
+        }
+
+        .zone-gameplay1,
+        .zone-gameplay2,
+        .zone-gameplay3 {
+            display: inline-block;
+            margin-left: 175px;
+            padding-top: 20px;
+            background-color: rgba(255, 255, 255, 0.301);
+            border-radius: 2em;
+        }
+
+        .text-gameplay {
+            font-size: 1.5em;
+            text-align: center;
+            width: 250px;
+        }
+
+        .img-gameplay1,
+        .img-gameplay4 {
+            width: 12em;
+            margin-left: 15px;
+            padding: 40px 0 10px 0;
+        }
+
+        .img-gameplay2 {
+            width: 10em;
+            margin-left: 40px;
+            padding: 10px 0 10px 0;
+        }
+
+        .img-gameplay3 {
+            width: 14em;
+            margin-left: 15px;
+            padding: 10px 0 10px 0;
+        }
+
+
+        .key-gameplay1,
+        .key-gameplay2,
+        .key-gameplay3 {
+            text-align: center;
+            margin: auto;
+            display: flex;
+        }
+
+        .key-gameplay1,
+        .key-gameplay2 {
+            width: 4em;
+        }
+
+        .key-gameplay1 {
+            padding-top: 52px;
+        }
+
+        .key-gameplay2 {
+            padding-bottom: 8px;
+        }
+
+        .key-gameplay3 {
+            width: 10em;
+            padding-top: 52px;
+        }
+
+        .button-play {
+            padding-top: 3em;
+            text-align: end;
+            width: 1280px;
+            position: absolute;
+        }
+
+        .play {
+            border-radius: 0.5em;
+            width: 6em;
+            height: 2em;
+            text-align: center;
+            background-color: white;
+            font-weight: bold;
+            color: #C3B58A;
+            font-size: 15px;
+        }
     }
 
-    .explain-gameplay {
-        display: inline-flex;
-        width: 0;
-    }
-
-    .zone-gameplay1, .zone-gameplay2, .zone-gameplay3 {
-        display: inline-block;
-        padding-left: 125px;
-        padding-top: 40px;
-    }
-
-    .zone-gameplay1 {
-        margin-left: 100px;
-    }
-
-    .text-gameplay {
-        font-size: 1.5em;
-        text-align: center;
-        width: 250px;
-    }
-
-    .img-gameplay {
-        width: 12em;
-        margin-left: 15px;
-    }
-
-    .key-gameplay1, .key-gameplay2, .key-gameplay3 {
-        text-align: center;
-        margin: auto;
-        display: flex;
-    }
-
-    .key-gameplay1, .key-gameplay2 {
-        width: 4em;
-    }
-
-    .key-gameplay3 {
-        width: 10em;
-    }
-
-    .play {
-        border-radius: 0.5em;
-
-    }
 }
