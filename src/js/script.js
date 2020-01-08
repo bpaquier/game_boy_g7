@@ -1,8 +1,8 @@
-oxo.inputs.listenKeyOnce('enter', function() {
-  oxo.screens.loadScreen('game', function() {
-    game();
-  });
+//oxo.inputs.listenKeyOnce('enter', function() {
+oxo.screens.loadScreen('game', function() {
+  game();
 });
+//});
 
 function endFunction() {
   oxo.inputs.listenKeyOnce('enter', function() {
@@ -37,8 +37,6 @@ function game() {
   let isShooting = false;
 
   (function play() {
-    appearRandomTree();
-    appearRandomCrab();
     moveBrontis();
     itemsApparition();
     addSqueez();
@@ -52,12 +50,14 @@ function game() {
 
   function itemsApparition() {
     appearRandomBoat();
+    appearRandomTree();
+    appearRandomCrab();
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
         appearRandomCrab,
-        getRandomNumber(1000, 3000)
+        getRandomNumber(1000, 2000)
       );
-    }, 6000);
+    }, 3000);
 
     appartionTreeTemplate = setInterval(function() {
       treeRandomApparitionTemplate = setTimeout(
@@ -71,7 +71,7 @@ function game() {
         appearRandomBall,
         getRandomNumber(3000, 5000)
       );
-    }, 8000);
+    }, 6000);
 
     apparitionDogTemplate = setInterval(function() {
       dogRandomApparitionTemplate = setTimeout(
@@ -146,7 +146,6 @@ function game() {
         if (brontisLifes > 0) {
           brontisLifes--;
           brontisIsInvincible = true;
-
           $brontis.classList.add('is-flashing');
           $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
 
@@ -164,7 +163,6 @@ function game() {
   function brontisCatchSqueeze() {
     oxo.elements.onCollisionWithElement($brontis, $squeeze, function() {
       if (!isFighting) {
-        console.log('FIGHT');
         clearAllIntervalAndTimeout();
         freezeTrees();
         fight();
@@ -289,6 +287,7 @@ function game() {
       true
     );
   }
+  ////////////////////////////////////////////////////FIGHT/////////////////////////////////////////////
 
   function fight() {
     isFighting = true;
@@ -296,10 +295,27 @@ function game() {
     setSqueezeLifes();
     resetbrontisLifes();
     flashing();
+    moveDuringFight();
     setTimeout(function() {
       replaceBrontis();
       replaceSqueeze();
     }, 500);
+
+    setInterval(function() {
+      let squeezeWeapon = createWeapon(
+        'div',
+        'squeeze-dog',
+        $squeeze,
+        'left',
+        150,
+        -150
+      );
+      $gameArea.appendChild(squeezeWeapon);
+      hitBrontis(squeezeWeapon);
+    }, 2000);
+  }
+
+  function moveDuringFight() {
     window.addEventListener('keyup', function(key) {
       switch (key.keyCode) {
         case 39:
@@ -312,10 +328,18 @@ function game() {
     });
     window.addEventListener('keydown', function(e) {
       if (e.keyCode === 32) {
-        brontisThrowWeapon();
+        let brontisWeapon = createWeapon(
+          'div',
+          'weapon',
+          $brontis,
+          'right',
+          80,
+          0
+        );
+        $gameArea.appendChild(brontisWeapon);
+        hitSqueeze(brontisWeapon);
       }
     });
-    setInterval(createSqueezeWeapon, 3000);
   }
 
   function removeEnemies() {
@@ -323,9 +347,11 @@ function game() {
       elt.remove();
     });
   }
+
   function setSqueezeLifes() {
     $squeezeLifes.innerHTML = 'Life : ' + squeezeLifes;
   }
+
   function resetbrontisLifes() {
     brontisLifes = 5;
     $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
@@ -348,38 +374,47 @@ function game() {
   function replaceSqueeze() {
     $squeeze.classList.add('ready-to-fight');
     $squeeze.classList.remove('is-running');
-    let position = oxo.animation.getPosition($squeeze);
   }
 
-  function brontisThrowWeapon() {
-    createBrontisWeapon();
-  }
-
-  function createBrontisWeapon() {
+  function createWeapon(
+    type,
+    classname,
+    owner,
+    direction,
+    Yvariation,
+    Xvariation
+  ) {
     if (!isShooting) {
       isShooting = true;
+      const element = document.createElement(type);
+      element.classList.add(classname);
 
-      const $brontisWeapon = document.createElement('div');
-      $brontisWeapon.classList.add('weapon');
+      let position = oxo.animation.getPosition(owner);
+      let positionY = owner.offsetTop + Yvariation;
+      let positionX = owner.offsetLeft + owner.offsetWidth + Xvariation;
 
-      let position = oxo.animation.getPosition($brontis);
-      let positionY = $brontis.offsetTop + 80;
-      let positionX = $brontis.offsetLeft + $brontis.offsetWidth;
+      element.style.top = positionY + 'px';
+      element.style.left = positionX + position.x + 'px';
 
-      $brontisWeapon.style.top = positionY + 'px';
-      $brontisWeapon.style.left = positionX + position.x + 'px';
-      $gameArea.appendChild($brontisWeapon);
       setInterval(function() {
-        oxo.animation.move($brontisWeapon, 'right', 1, true);
+        oxo.animation.move(element, direction, 1, true);
       }, 1);
       setTimeout(function() {
         isShooting = false;
       }, 500);
-      hitSqueeze($brontisWeapon);
+
+      return element;
     }
   }
 
   function hitSqueeze(element) {
+    oxo.elements.onLeaveScreenOnce(
+      element,
+      function() {
+        element.remove();
+      },
+      true
+    );
     oxo.elements.onCollisionWithElement($squeeze, element, function() {
       element.remove();
       if (squeezeLifes > 0) {
@@ -395,28 +430,19 @@ function game() {
     });
   }
 
-  function createSqueezeWeapon() {
-    const $squeezeWeapon = document.createElement('div');
-    $squeezeWeapon.classList.add('squeeze-dog');
-
-    let position = oxo.animation.getPosition($squeeze);
-    let positionY = $squeeze.offsetTop + 80;
-    let positionX = $squeeze.offsetLeft + $squeeze.offsetWidth - 50;
-
-    $squeezeWeapon.style.top = positionY + 'px';
-    $squeezeWeapon.style.left = positionX + position.x + 'px';
-    $gameArea.appendChild($squeezeWeapon);
-    setInterval(function() {
-      oxo.animation.move($squeezeWeapon, 'left', 1, true);
-    }, 1);
-    hitBrontis($squeezeWeapon);
-  }
-
   function hitBrontis(element) {
+    oxo.elements.onLeaveScreenOnce(
+      element,
+      function() {
+        element.remove();
+      },
+      true
+    );
     oxo.elements.onCollisionWithElement($brontis, element, function() {
-      element.remove();
       if (!brontisIsInvincible) {
+        element.remove();
         if (brontisLifes > 0) {
+          brontisIsInvincible = true;
           brontisLifes--;
           $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
           $brontis.classList.add('is-flashing');
