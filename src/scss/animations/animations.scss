@@ -21,7 +21,7 @@
 
 @keyframes squeeze-move {
   to {
-    left: $game-area-width - 100;
+    transform: translateX($game-area-width - 100);
   }
 }
 
@@ -54,6 +54,6 @@
     bottom: $ground-height + 100;
   }
   to {
-    bottom: $ground-height - 300;
+    bottom: $ground-height - 500;
   }
 }
