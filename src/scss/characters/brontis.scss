@@ -1,24 +1,84 @@
 .brontis {
-  visibility: hidden;
   position: absolute;
-  width: 80px;
+  width: 70px;
   height: 120px;
   bottom: $ground-height;
-  background-image: url('/img/Brontis-Marche.gif');
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: bottom;
   z-index: 1;
 }
 
-.brontis.is-visible {
-  visibility: visible;
+.brontis.is-running {
+  background-image: url('/img/Brontis-Marche.gif');
+}
+
+.brontis.is-static {
+  background-image: url('/img/Brontis-Static.png');
 }
 
 .brontis.is-jumping {
   animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+  background-image: url('/img/Brontis-saut.png');
+  width: 70px;
 }
 
 .brontis.is-bending-down {
-  height: 25px;
+  background-image: url('/img/Brontis-bas.gif');
+  width: 110px;
+  height: 75px;
+}
+
+.brontis.is-flashing {
+  animation: is-flashing 0.5s alternate infinite;
+}
+
+.brontis.is-jumping.is-flashing {
+  animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite,
+    is-flashing 0.5s alternate infinite;
+}
+
+.brontis.is-dead {
+  animation: loose 1s ease-out forwards;
+  background-image: url('/img/Brontis-dead.png');
+}
+
+.brontis.ready-to-fight {
+  background-image: url('/img/Brontis-Static.png');
+  left: -900px;
+  width: 140px;
+  height: 240px;
+}
+
+.brontis.ready-to-fight.is-bending-down {
+  background-image: url('/img/Brontis-bas.gif');
+  width: 220px;
+  height: 150px;
+}
+
+.brontis.ready-to-fight.is-bending-down.is-running {
+  background-image: url('/img/Brontis-bas.gif');
+  width: 220px;
+  height: 150px;
+}
+
+.brontis.ready-to-fight.is-flashing {
+  animation: is-flashing 0.5s alternate infinite;
+}
+
+.brontis.ready-to-fight.is-jumping {
+  animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+  background-image: url('/img/Brontis-saut.png');
+}
+
+.brontis.ready-to-fight.is-running {
+  background-image: url('/img/Brontis-Marche.gif');
+}
+
+.weapon {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: black;
 }

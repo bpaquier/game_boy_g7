@@ -1,17 +1,17 @@
-@import "vendors/reset";
+@import 'vendors/reset';
 
-@import "global/variables.scss";
-@import "global/layout";
+@import 'global/variables.scss';
+@import 'global/layout';
 
-@import "animations/animations.scss";
+@import 'animations/animations.scss';
 
-@import "background/background.scss";
+@import 'background/background.scss';
 
-@import "characters/brontis.scss";
-@import "characters/squeeze.scss";
+@import 'characters/brontis.scss';
+@import 'characters/squeeze.scss';
 
-@import "obstacles/obstacles.scss";
+@import 'end/end.scss';
 
-@import "home/home.scss";
+@import 'obstacles/obstacles.scss';
 
-@import "end/end.scss";
+@import 'home/home.scss';

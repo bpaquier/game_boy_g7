@@ -7,20 +7,53 @@
   }
 }
 
-@keyframes move {
-  form {
-    transform: none;
-  }
+@keyframes move-to-left {
   to {
-    transform: translateX(-1000px);
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes move-to-right {
+  to {
+    transform: translateX(+100vw);
+  }
+}
+
+@keyframes squeeze-move {
+  to {
+    transform: translateX($game-area-width - 100);
   }
 }
 
 @keyframes rotation {
-  from {
-    transform: none;
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
+
+@keyframes is-flashing {
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
   }
   to {
-    transform: rotateZ(-380deg);
+    opacity: 0;
+  }
+}
+
+@keyframes loose {
+  40% {
+    bottom: $ground-height + 100;
+  }
+  to {
+    bottom: $ground-height - 500;
   }
 }

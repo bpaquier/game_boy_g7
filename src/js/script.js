@@ -1,13 +1,24 @@
-//oxo.inputs.listenKeyOnce('enter', function() {
-oxo.screens.loadScreen('game', function() {
-  game();
+oxo.inputs.listenKeyOnce('enter', function() {
+  oxo.screens.loadScreen('game', function() {
+    game();
+  });
 });
-//});
+
+function endFunction() {
+  oxo.inputs.listenKeyOnce('enter', function() {
+    oxo.screens.loadScreen('game', function() {
+      game();
+    });
+  });
+}
 
 function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
+  const $squeeze = document.querySelector('.squeeze');
+  const $brontisLifes = document.querySelector('.game-area__brontisLifes');
+  const $squeezeLifes = document.querySelector('.game-area__squeezeLifes');
 
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
@@ -20,15 +31,27 @@ function game() {
   let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
+  let brontisLifes = 5;
+  let squeezeLifes = 5;
+  let isFighting = false;
+  let isShooting = false;
 
   (function play() {
     appearRandomTree();
     appearRandomCrab();
-    addBrontis();
     moveBrontis();
+    itemsApparition();
+    addSqueez();
+    setTimeout(function() {
+      brontisCatchSqueeze();
+    }, 500);
 
     $originalTrees.classList.add('is-moving');
+    $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+  })();
 
+  function itemsApparition() {
+    appearRandomBoat();
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(
         appearRandomCrab,
@@ -41,36 +64,49 @@ function game() {
         appearRandomTree,
         getRandomNumber(3000, 7000)
       );
-    }, 10000);
+    }, 8000);
 
     apparitionBallTemplate = setInterval(function() {
       ballRandomApparitionTemplate = setTimeout(
         appearRandomBall,
         getRandomNumber(3000, 5000)
       );
-    }, 10000);
+    }, 8000);
 
     apparitionDogTemplate = setInterval(function() {
       dogRandomApparitionTemplate = setTimeout(
         appearRandomDog,
         getRandomNumber(2000, 4000)
       );
-    }, 10000);
-  })();
+    }, 11000);
+  }
 
-  function addBrontis() {
-    $brontis.classList.add('is-visible');
+  function clearAllIntervalAndTimeout() {
+    clearInterval(apparitionCrabTemplate);
+    clearInterval(appartionTreeTemplate);
+    clearInterval(apparitionBallTemplate);
+    clearInterval(apparitionDogTemplate);
+
+    clearTimeout(crabRandomApparitionTemplate);
+    clearTimeout(treeRandomApparitionTemplate);
+    clearTimeout(ballRandomApparitionTemplate);
+    clearTimeout(dogRandomApparitionTemplate);
+  }
+
+  function addSqueez() {
+    $squeeze.classList.add('is-running');
+  }
+
+  function squeezeIsDead() {
+    $squeeze.classList.add('is-dead');
   }
 
   function moveBrontis() {
+    $brontis.classList.add('is-running');
     oxo.inputs.listenArrowKeys(function(key) {
       switch (key) {
         case 'up':
-          if ($brontis.classList.contains('is-bending-down')) {
-            $brontis.classList.remove('is-bending-down');
-          } else {
-            brontisIsJunping();
-          }
+          brontisIsJunping();
           break;
         case 'down':
           if ($brontis.classList.contains('is-jumping')) {
@@ -79,11 +115,26 @@ function game() {
             brontisIsBendingDown();
           }
           break;
+
         case 'right':
-          oxo.animation.move($brontis, 'right', 5, true);
+          oxo.animation.move($brontis, 'right', 4, true);
+          if (!$brontis.classList.contains('is-running')) {
+            $brontis.classList.add('is-running');
+          }
           break;
         case 'left':
-          oxo.animation.move($brontis, 'left', 5, true);
+          oxo.animation.move($brontis, 'left', 4, true);
+          if (!$brontis.classList.contains('is-running')) {
+            $brontis.classList.add('is-running');
+          }
+
+          break;
+      }
+    });
+    window.addEventListener('keyup', function(key) {
+      switch (key.keyCode) {
+        case 40:
+          $brontis.classList.remove('is-bending-down');
           break;
       }
     });
@@ -91,8 +142,33 @@ function game() {
 
   function brontisHitElt(element) {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
-      console.log('touch');
-      $brontis.classList.add('is-dead');
+      if (!brontisIsInvincible) {
+        if (brontisLifes > 0) {
+          brontisLifes--;
+          brontisIsInvincible = true;
+
+          $brontis.classList.add('is-flashing');
+          $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+
+          setTimeout(function() {
+            $brontis.classList.remove('is-flashing');
+            brontisIsInvincible = false;
+          }, 3000);
+        } else {
+          brontisIsDead();
+        }
+      }
+    });
+  }
+
+  function brontisCatchSqueeze() {
+    oxo.elements.onCollisionWithElement($brontis, $squeeze, function() {
+      if (!isFighting) {
+        console.log('FIGHT');
+        clearAllIntervalAndTimeout();
+        freezeTrees();
+        fight();
+      }
     });
   }
 
@@ -108,10 +184,11 @@ function game() {
   function brontisIsBendingDown() {
     if (!$brontis.classList.add('is-bending-down')) {
       $brontis.classList.add('is-bending-down');
-      setTimeout(function() {
-        $brontis.classList.remove('is-bending-down');
-      }, 800);
     }
+  }
+  function brontisIsDead() {
+    $brontis.classList.add('is-dead');
+    clearAllIntervalAndTimeout();
   }
 
   function getRandomNumber(min, max) {
@@ -122,9 +199,9 @@ function game() {
     return number;
   }
 
-  function appearRandomCrab(e) {
+  function appearRandomCrab() {
     const $crab = document.createElement('div');
-    $crab.classList.add('crab');
+    $crab.classList.add('enemy', 'crab');
     $gameArea.appendChild($crab);
     setInterval(function() {
       oxo.animation.move($crab, 'left', 1, true);
@@ -142,6 +219,7 @@ function game() {
   function appearRandomTree() {
     const $tree = document.createElement('div');
     $tree.classList.add('trees', 'tree__random');
+    $tree.style.width = getRandomNumber(150, 350) + 'px';
     $gameArea.appendChild($tree);
     setInterval(function() {
       oxo.animation.move($tree, 'left', 1, true);
@@ -155,9 +233,17 @@ function game() {
     );
   }
 
+  function freezeTrees() {
+    document.querySelectorAll('.tree__random').forEach(function(tree) {
+      var position = oxo.animation.getPosition(tree);
+      tree.style.transform = 'none';
+      tree.style.left = 1290 + position.x + 'px';
+    });
+  }
+
   function appearRandomBall() {
     const $ball = document.createElement('div');
-    $ball.classList.add('ball');
+    $ball.classList.add('enemy', 'ball');
     $gameArea.appendChild($ball);
     let positionX = $ball.offsetLeft;
     setInterval(function() {
@@ -176,7 +262,7 @@ function game() {
 
   function appearRandomDog() {
     const $dog = document.createElement('div');
-    $dog.classList.add('dog');
+    $dog.classList.add('enemy', 'dog');
     $gameArea.appendChild($dog);
     setInterval(function() {
       oxo.animation.move($dog, 'left', 1, true);
@@ -189,5 +275,159 @@ function game() {
       true
     );
     brontisHitElt($dog);
+  }
+
+  function appearRandomBoat() {
+    const $boat = document.createElement('div');
+    $boat.classList.add('boat');
+    $gameArea.appendChild($boat);
+    oxo.elements.onLeaveScreenOnce(
+      $boat,
+      function() {
+        $boat.remove();
+      },
+      true
+    );
+  }
+
+  function fight() {
+    isFighting = true;
+    removeEnemies();
+    setSqueezeLifes();
+    resetbrontisLifes();
+    flashing();
+    setTimeout(function() {
+      replaceBrontis();
+      replaceSqueeze();
+    }, 500);
+    window.addEventListener('keyup', function(key) {
+      switch (key.keyCode) {
+        case 39:
+          $brontis.classList.remove('is-running');
+          break;
+        case 37:
+          $brontis.classList.remove('is-running');
+          break;
+      }
+    });
+    window.addEventListener('keydown', function(e) {
+      if (e.keyCode === 32) {
+        brontisThrowWeapon();
+      }
+    });
+    setInterval(createSqueezeWeapon, 3000);
+  }
+
+  function removeEnemies() {
+    document.querySelectorAll('.enemy').forEach(function(elt) {
+      elt.remove();
+    });
+  }
+  function setSqueezeLifes() {
+    $squeezeLifes.innerHTML = 'Life : ' + squeezeLifes;
+  }
+  function resetbrontisLifes() {
+    brontisLifes = 5;
+    $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+  }
+
+  function flashing() {
+    const $overlay = document.createElement('div');
+    $overlay.classList.add('overlay');
+    $gameArea.appendChild($overlay);
+    setTimeout(function() {
+      $overlay.remove();
+    }, 1000);
+  }
+
+  function replaceBrontis() {
+    $brontis.classList.add('ready-to-fight');
+    $brontis.classList.remove('is-running');
+  }
+
+  function replaceSqueeze() {
+    $squeeze.classList.add('ready-to-fight');
+    $squeeze.classList.remove('is-running');
+    let position = oxo.animation.getPosition($squeeze);
+  }
+
+  function brontisThrowWeapon() {
+    createBrontisWeapon();
+  }
+
+  function createBrontisWeapon() {
+    if (!isShooting) {
+      isShooting = true;
+
+      const $brontisWeapon = document.createElement('div');
+      $brontisWeapon.classList.add('weapon');
+
+      let position = oxo.animation.getPosition($brontis);
+      let positionY = $brontis.offsetTop + 80;
+      let positionX = $brontis.offsetLeft + $brontis.offsetWidth;
+
+      $brontisWeapon.style.top = positionY + 'px';
+      $brontisWeapon.style.left = positionX + position.x + 'px';
+      $gameArea.appendChild($brontisWeapon);
+      setInterval(function() {
+        oxo.animation.move($brontisWeapon, 'right', 1, true);
+      }, 1);
+      setTimeout(function() {
+        isShooting = false;
+      }, 500);
+      hitSqueeze($brontisWeapon);
+    }
+  }
+
+  function hitSqueeze(element) {
+    oxo.elements.onCollisionWithElement($squeeze, element, function() {
+      element.remove();
+      if (squeezeLifes > 0) {
+        squeezeLifes--;
+        $squeezeLifes.innerHTML = 'Life : ' + squeezeLifes;
+        //setTimeout(function() {
+        //$brontis.classList.remove('is-flashing');
+        //brontisIsInvincible = false;
+        //}, 3000);
+      } else {
+        squeezeIsDead();
+      }
+    });
+  }
+
+  function createSqueezeWeapon() {
+    const $squeezeWeapon = document.createElement('div');
+    $squeezeWeapon.classList.add('squeeze-dog');
+
+    let position = oxo.animation.getPosition($squeeze);
+    let positionY = $squeeze.offsetTop + 80;
+    let positionX = $squeeze.offsetLeft + $squeeze.offsetWidth - 50;
+
+    $squeezeWeapon.style.top = positionY + 'px';
+    $squeezeWeapon.style.left = positionX + position.x + 'px';
+    $gameArea.appendChild($squeezeWeapon);
+    setInterval(function() {
+      oxo.animation.move($squeezeWeapon, 'left', 1, true);
+    }, 1);
+    hitBrontis($squeezeWeapon);
+  }
+
+  function hitBrontis(element) {
+    oxo.elements.onCollisionWithElement($brontis, element, function() {
+      element.remove();
+      if (!brontisIsInvincible) {
+        if (brontisLifes > 0) {
+          brontisLifes--;
+          $brontisLifes.innerHTML = 'Life : ' + brontisLifes;
+          $brontis.classList.add('is-flashing');
+          setTimeout(function() {
+            $brontis.classList.remove('is-flashing');
+            brontisIsInvincible = false;
+          }, 3000);
+        } else {
+          brontisIsDead();
+        }
+      }
+    });
   }
 }
