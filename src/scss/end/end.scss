@@ -1,3 +1,14 @@
+@font-face {
+  font-family: "Spongebob";
+  src: url("../fonts/SpongeboyMeBob.woff") format("woff"),
+    url("../fonts/SpongeboyMeBob.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat-regular";
+  src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
+}
+
 @keyframes defiler {
   25% {
     transform: translateY(0px);
@@ -6,7 +17,7 @@
     transform: translateY(-50vh);
   }
   100% {
-    transform: translateY(-170vh);
+    transform: translateY(-160vh);
   }
 }
 
@@ -19,43 +30,58 @@
   right: 0;
   justify-content: center;
   justify-content: space-around;
+  z-index: 2;
+  height: 100px;
 }
 
 .victoire {
-  color: green;
+  margin-top: 20px;
+  font-family: "Spongebob";
+  color: #58b023;
   font-size: 5em;
 }
 
 .rejouer {
-  margin-top: 20px;
-  color: green;
+  margin-top: 30px;
+  color: #58b023;
   text-decoration: none;
   width: 226.35px;
   height: 40px;
   background-color: transparent;
   border: transparent;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .quitter {
-  margin-top: 20px;
-  color: red;
+  margin-top: 30px;
+  color: #f10b0b;
   text-decoration: none;
   width: 226.35px;
   height: 40px;
   background-color: transparent;
   border: transparent;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .credits {
   margin: 100px 50px 0px 50px;
   text-align: center;
   width: 1000vh;
+  z-index: 1;
 }
 
 .textefixe p {
   font-size: 3em;
   line-height: 100px;
   animation: defiler 20s forwards;
+}
+
+.dechu {
+  font-weight: bold;
 }
 
 .credit p {
@@ -65,7 +91,7 @@
 }
 
 .equipe {
-  margin-top: 200px;
+  margin-top: 180px;
   animation: defiler 20s forwards;
   font-weight: bold;
 }
