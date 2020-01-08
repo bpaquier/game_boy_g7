@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 oxo.inputs.listenKeyOnce("enter", function() {
   oxo.screens.loadScreen("game", function() {
     game();
   });
+=======
+//oxo.inputs.listenKeyOnce('enter', function() {
+oxo.screens.loadScreen('game', function() {
+  game();
+>>>>>>> adb8fcabb7de5665e1042429a744482b2cae2aab
 });
+//});
 
 function endFunction() {
   oxo.inputs.listenKeyOnce("enter", function() {
@@ -37,7 +44,7 @@ function game() {
     appearRandomTree();
     appearRandomCrab();
     moveBrontis();
-    //itemsApparition();
+    itemsApparition();
     addBrontis();
     addSqueez();
     brontisCatchSqueeze();
@@ -149,6 +156,7 @@ function game() {
       console.log("FIGHT");
       clearAllIntervalAndTimeout();
       freezeTrees();
+      fight();
     });
   }
 
@@ -186,8 +194,13 @@ function game() {
   }
 
   function appearRandomCrab() {
+<<<<<<< HEAD
     const $crab = document.createElement("div");
     $crab.classList.add("crab");
+=======
+    const $crab = document.createElement('div');
+    $crab.classList.add('enemy', 'crab');
+>>>>>>> adb8fcabb7de5665e1042429a744482b2cae2aab
     $gameArea.appendChild($crab);
     setInterval(function() {
       oxo.animation.move($crab, "left", 1, true);
@@ -228,8 +241,13 @@ function game() {
   }
 
   function appearRandomBall() {
+<<<<<<< HEAD
     const $ball = document.createElement("div");
     $ball.classList.add("ball");
+=======
+    const $ball = document.createElement('div');
+    $ball.classList.add('enemy', 'ball');
+>>>>>>> adb8fcabb7de5665e1042429a744482b2cae2aab
     $gameArea.appendChild($ball);
     let positionX = $ball.offsetLeft;
     setInterval(function() {
@@ -247,8 +265,13 @@ function game() {
   }
 
   function appearRandomDog() {
+<<<<<<< HEAD
     const $dog = document.createElement("div");
     $dog.classList.add("dog");
+=======
+    const $dog = document.createElement('div');
+    $dog.classList.add('enemy', 'dog');
+>>>>>>> adb8fcabb7de5665e1042429a744482b2cae2aab
     $gameArea.appendChild($dog);
     setInterval(function() {
       oxo.animation.move($dog, "left", 1, true);
@@ -274,5 +297,43 @@ function game() {
       },
       true
     );
+  }
+
+  function fight() {
+    removeEnemies();
+    resetLife();
+    flashing();
+    setTimeout(function() {
+      replaceBrontis();
+      replaceSqueeze();
+    }, 500);
+  }
+
+  function removeEnemies() {
+    document.querySelectorAll('.enemy').forEach(function(elt) {
+      elt.remove();
+    });
+  }
+
+  function resetLife() {
+    life = 3;
+    $life.innerHTML = 'Life : ' + life;
+  }
+
+  function flashing() {
+    const $overlay = document.createElement('div');
+    $overlay.classList.add('overlay');
+    $gameArea.appendChild($overlay);
+    setTimeout(function() {
+      $overlay.remove();
+    }, 1000);
+  }
+
+  function replaceBrontis() {
+    $brontis.classList.add('ready-to-fight');
+  }
+
+  function replaceSqueeze() {
+    $squeeze.classList.add('ready-to-fight');
   }
 }
