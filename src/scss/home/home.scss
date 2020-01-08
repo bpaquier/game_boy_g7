@@ -1,17 +1,38 @@
+@font-face{
+    font-family: "Spongebob";
+    src: url("../fonts/SpongeboyMeBob.woff") format("woff"), 
+         url("../fonts/SpongeboyMeBob.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat-regular";
+    src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
+}
+
 body {
 
     background: rgba(76, 127, 174, 0.856);
 
     div {
 
-        font-family: Arial;
+        font-family: "Montserrat-regular";
 
         .how-to {
             text-align: center;
             font-size: 4em;
-            padding: 0.5em;
-            margin-left: 475px;
+            padding-top: 0.5em;
             color: #C3B58A;
+            font-family: "Spongebob";
+        }
+
+        .text-story {
+            width: 50%;
+            position: relative;
+            padding: 1.5em;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: small;
         }
 
         .explain-gameplay {
@@ -23,7 +44,7 @@ body {
         .zone-gameplay1,
         .zone-gameplay2,
         .zone-gameplay3 {
-            display: inline-block;
+            text-align: center;
             margin-left: 175px;
             padding-top: 20px;
             background-color: rgba(255, 255, 255, 0.301);
@@ -38,20 +59,17 @@ body {
 
         .img-gameplay1,
         .img-gameplay4 {
-            width: 12em;
-            margin-left: 15px;
+            width: 8em;
             padding: 40px 0 10px 0;
         }
 
         .img-gameplay2 {
-            width: 10em;
-            margin-left: 40px;
+            width: 8em;
             padding: 10px 0 10px 0;
         }
 
         .img-gameplay3 {
-            width: 14em;
-            margin-left: 15px;
+            width: 12em;
             padding: 10px 0 10px 0;
         }
 
@@ -66,20 +84,20 @@ body {
 
         .key-gameplay1,
         .key-gameplay2 {
-            width: 4em;
+            width: 5em;
         }
 
         .key-gameplay1 {
-            padding-top: 52px;
+            padding-top: 5.5em;
         }
 
         .key-gameplay2 {
-            padding-bottom: 8px;
+            padding-bottom: 1em;
         }
 
         .key-gameplay3 {
-            width: 10em;
-            padding-top: 52px;
+            width: 12em;
+            padding-top: 6em;
         }
 
         .button-play {
@@ -98,6 +116,8 @@ body {
             font-weight: bold;
             color: #C3B58A;
             font-size: 15px;
+            font-family: "Spongebob";
+            letter-spacing: 0.1em;
         }
     }
 
