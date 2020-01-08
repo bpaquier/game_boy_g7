@@ -9,19 +9,17 @@
     src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
 }
 
-body {
+    article {
 
-    background: rgba(76, 127, 174, 0.856);
-
-    div {
-
+        background-image: url("../img/beach-background.png");
+        background-size: 100%;
         font-family: "Montserrat-regular";
 
         .how-to {
             text-align: center;
             font-size: 4em;
             padding-top: 0.5em;
-            color: #C3B58A;
+            color: #D4B38D;
             font-family: "Spongebob";
         }
 
@@ -59,7 +57,7 @@ body {
 
         .img-gameplay1,
         .img-gameplay4 {
-            width: 8em;
+            width: 12em;
             padding: 40px 0 10px 0;
         }
 
@@ -87,17 +85,13 @@ body {
             width: 5em;
         }
 
-        .key-gameplay1 {
-            padding-top: 5.5em;
-        }
-
         .key-gameplay2 {
             padding-bottom: 1em;
         }
 
         .key-gameplay3 {
             width: 12em;
-            padding-top: 6em;
+            padding-top: 4em;
         }
 
         .button-play {
@@ -114,11 +108,9 @@ body {
             text-align: center;
             background-color: white;
             font-weight: bold;
-            color: #C3B58A;
+            color: #D4B38D;
             font-size: 15px;
             font-family: "Spongebob";
             letter-spacing: 0.1em;
         }
     }
-
-}
