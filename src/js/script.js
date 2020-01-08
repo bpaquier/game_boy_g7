@@ -1,8 +1,16 @@
-//oxo.inputs.listenKeyOnce('enter', function() {
-oxo.screens.loadScreen('game', function() {
-  game();
+oxo.inputs.listenKeyOnce('enter', function() {
+  oxo.screens.loadScreen('game', function() {
+    game();
+  });
 });
-//});
+
+function endFunction() {
+  oxo.inputs.listenKeyOnce('enter', function() {
+    oxo.screens.loadScreen('game', function() {
+      game();
+    });
+  });
+}
 
 function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
@@ -23,15 +31,15 @@ function game() {
   let dogRandomApparitionTemplate;
 
   let brontisIsInvincible = false;
-  let life = 4;
+  let life = 3;
 
   (function play() {
     appearRandomTree();
     appearRandomCrab();
+    moveBrontis();
+    //itemsApparition();
     addBrontis();
     addSqueez();
-    setTimeout(moveBrontis, 2000);
-    itemsApparition();
     brontisCatchSqueeze();
 
     $originalTrees.classList.add('is-moving');
@@ -81,23 +89,18 @@ function game() {
     clearTimeout(dogRandomApparitionTemplate);
   }
 
-  function addBrontis() {
-    $brontis.classList.add('is-visible');
-  }
-
   function addSqueez() {
     $squeeze.classList.add('is-visible');
   }
 
+  function addBrontis() {
+    $brontis.classList.add('is-visible');
+  }
   function moveBrontis() {
     oxo.inputs.listenArrowKeys(function(key) {
       switch (key) {
         case 'up':
-          if ($brontis.classList.contains('is-bending-down')) {
-            $brontis.classList.remove('is-bending-down');
-          } else {
-            brontisIsJunping();
-          }
+          brontisIsJunping();
           break;
         case 'down':
           if ($brontis.classList.contains('is-jumping')) {
@@ -112,6 +115,12 @@ function game() {
         case 'left':
           oxo.animation.move($brontis, 'left', 4, true);
           break;
+      }
+    });
+    window.addEventListener('keyup', function(key) {
+      switch (key.keyCode) {
+        case 40:
+          $brontis.classList.remove('is-bending-down');
       }
     });
   }
@@ -155,15 +164,17 @@ function game() {
   function brontisIsBendingDown() {
     if (!$brontis.classList.add('is-bending-down')) {
       $brontis.classList.add('is-bending-down');
-      setTimeout(function() {
-        $brontis.classList.remove('is-bending-down');
-      }, 800);
     }
   }
   function brontisIsDead() {
     $brontis.classList.add('is-dead');
     brontisIsAlive = false;
     clearAllIntervalAndTimeout();
+    setTimeout(function() {
+      oxo.screens.loadScreen('end', function() {
+        endFunction();
+      });
+    }, 2000);
   }
 
   function getRandomNumber(min, max) {
