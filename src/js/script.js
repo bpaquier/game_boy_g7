@@ -1,8 +1,8 @@
-//oxo.inputs.listenKeyOnce('enter', function() {
-oxo.screens.loadScreen('game', function() {
-  game();
+oxo.inputs.listenKeyOnce('enter', function() {
+  oxo.screens.loadScreen('game', function() {
+    game();
+  });
 });
-//});
 
 function endFunction() {
   oxo.inputs.listenKeyOnce('enter', function() {
