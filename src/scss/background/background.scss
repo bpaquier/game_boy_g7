@@ -21,11 +21,18 @@
   z-index: -1;
 }*/
 
-.game-area__life {
+.game-area__brontisLifes {
   position: absolute;
   bottom: 20px;
   left: 20px;
 }
+
+.game-area__squeezeLifes {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 .game-area__ground {
   position: absolute;
   bottom: 0;
