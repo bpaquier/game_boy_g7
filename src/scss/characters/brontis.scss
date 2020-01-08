@@ -40,3 +40,19 @@
   animation: loose 1s ease-out forwards;
   background-image: url('/img/Brontis-dead.png');
 }
+
+.brontis.ready-to-fight {
+  background-image: url('/img/Brontis-Static.png');
+  left: -1000px;
+  width: 140px;
+  height: 240px;
+}
+
+.brontis.ready-to-fight.is-flashing {
+  animation: is-flashing 0.5s alternate infinite;
+}
+
+.brontis.ready-to-fight.is-jumping {
+  animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+  background-image: url('/img/Brontis-saut.png');
+}
