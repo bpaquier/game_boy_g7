@@ -97,3 +97,15 @@
     bottom: $ground-height - 500;
   }
 }
+
+@keyframes defiler {
+  25% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50vh);
+  }
+  100% {
+    transform: translateY(-170vh);
+  }
+}

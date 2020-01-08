@@ -9,28 +9,49 @@
   z-index: -2;
 }
 
-/*.game-area__sun {
-  position: absolute;
-  left: 100px;
-  top: 200px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background-color: yellow;
-  animation: sun-move 7s linear;
-  z-index: -1;
-}*/
-
 .game-area__brontisLifes {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  left: 40px;
+  display: flex;
 }
 
-.game-area__squeezeLifes {
+.game-area__brontisLifes .life-illustration {
+  margin-right: 10px;
+  width: 30px;
+  height: 60px;
+  background-image: url('/img/Brontis-Static.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.game-area__squeezeLifes,
+.game-area__timer {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  right: 40px;
+  display: flex;
+}
+
+.game-area__squeezeLifes .life-illustration {
+  margin-left: 10px;
+  width: 30px;
+  height: 60px;
+  background-image: url('/img/Squeezie-static.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.game-area__timer {
+  font-family: 'Spongebob';
+  font-size: 30px;
+  letter-spacing: 5px;
+}
+
+.game-area__timer.red {
+  color: red;
 }
 
 .game-area__ground {
