@@ -22,10 +22,10 @@ function endPage() {
 function countdown() {
   let countdownStart = 3;
   const $countdown = document.querySelector('.countdown');
-  $countdown.innerHTML = countdownStart;
   let countdownTemplate = setInterval(function() {
     if (countdownStart > 0) {
-      $countdown.innerHTML = countdownStart--;
+      $countdown.innerHTML = countdownStart;
+      countdownStart--;
     } else {
       $countdown.innerHTML = 'GO!';
       clearInterval(countdownTemplate);
@@ -71,23 +71,22 @@ function game() {
   let isShooting = false;
   let isPaused = false;
   let isMuted = false;
-  let lifes = 5;
+  let lifes = 6;
   let brontisLifes = lifes;
   let squeezeLifes = lifes;
-  let time = 60;
+  let time = 45;
 
   (function play() {
     $musiqueDeFond.play();
     $musiqueDeFond.volume = 0.5;
     chooseVolume();
     pause();
-    moveBrontis();
-    moveBrontis();
     itemsApparition();
     addSqueezie();
     setTimeout(function() {
       brontisCatchSqueeze();
-    }, 500);
+      moveBrontis();
+    }, 1000);
 
     $originalTrees.classList.add('is-moving');
     lifeIllustration(brontisLifes, $brontisLifes);
@@ -188,9 +187,9 @@ function game() {
     apparitionBallTemplate = setInterval(function() {
       ballRandomApparitionTemplate = setTimeout(
         addRandomBall,
-        getRandomNumber(1000, 2000)
+        getRandomNumber(3000, 7000)
       );
-    }, 4000);
+    }, 9000);
 
     apparitionDogTemplate = setInterval(function() {
       dogRandomApparitionTemplate = setTimeout(function() {
@@ -199,8 +198,8 @@ function game() {
           addRandomItems('div', 'enemy', 'dog', 4, true);
           $squeeze.classList.remove('is-throwing-back');
         }, 300);
-      }, getRandomNumber(1000, 4000));
-    }, 6000);
+      }, getRandomNumber(2000, 3000));
+    }, 5000);
   }
 
   function clearAllIntervalAndTimeoutDuringRun() {
@@ -405,13 +404,13 @@ function game() {
       $musiqueDeFond.play();
     }
     isFighting = true;
-    removeEnemies();
     resetLifes();
     flashing();
     keyListenerDuringFight();
     setTimeout(function() {
       replaceBrontis();
       replaceSqueeze();
+      removeEnemies();
     }, 500);
   }
 
@@ -422,7 +421,7 @@ function game() {
         squeezeThrowDogs();
         $squeeze.classList.remove('is-throwing');
       }, 400);
-    }, 2000);
+    }, 1500);
   }
 
   function keyListenerDuringFight() {
