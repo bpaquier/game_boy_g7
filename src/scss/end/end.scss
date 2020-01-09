@@ -1,101 +1,153 @@
-@font-face {
-  font-family: "Spongebob";
-  src: url("../fonts/SpongeboyMeBob.woff") format("woff"),
-    url("../fonts/SpongeboyMeBob.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Montserrat-regular";
-  src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
-}
-
-@keyframes textup {
-  25% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-50vh);
-  }
-  100% {
-    transform: translateY(-160vh);
-  }
-}
-
 .win {
-  background-image: url("../img/fondend.png");
-  width: 300vh;
-  z-index: 0;
-}
-.header_end {
-  background-color: black;
-  display: flex;
-  position: fixed;
+  visibility: hidden;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  justify-content: center;
-  justify-content: space-around;
-  z-index: 2;
-  height: 140px;
-}
+  background-color: black;
+  z-index: 0;
 
-.victory {
-  margin-top: 40px;
-  font-family: "Spongebob";
-  color: #58b023;
-  font-size: 6em;
-}
-
-.replay {
-  margin-top: 50px;
-  color: #58b023;
-  text-decoration: none;
-  width: 226.35px;
-  height: 40px;
-  background-color: transparent;
-  border: transparent;
-  font-size: 30px;
-  font-weight: bold;
-  font-family: "Spongebob";
-  cursor: pointer;
-}
-
-.leave {
-  margin-top: 50px;
-  color: #f10b0b;
-  text-decoration: none;
-  width: 226.35px;
-  height: 40px;
-  background-color: transparent;
-  border: transparent;
-  font-size: 30px;
-  font-weight: bold;
-  font-family: "Spongebob";
-  cursor: pointer;
-}
-
-.credit {
-  margin: 160px 50px 0px 50px;
-  text-align: center;
-  width: 190vh;
-  z-index: 1;
-  color: #d4b38d;
-  animation: textup 20s forwards;
-  font-family: "Montserrat-regular";
-  .credit-debut {
-    font-size: 3em;
-    line-height: 100px;
+  .header_end {
+    background-color: black;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    justify-content: space-around;
+    z-index: 2;
+    height: 140px;
   }
-  .credit-end {
-    font-size: 3em;
-    line-height: 300px;
+
+  .title {
+    margin-top: 40px;
+    font-family: "Spongebob";
+    color: #58b023;
+    font-size: 6em;
   }
-  .credit-result {
+
+  .replay {
+    margin-top: 30px;
+    color: #58b023;
+    font-size: 30px;
     font-weight: bold;
+    font-family: "Spongebob";
+    line-height: 40px;
   }
-  .credit-team {
-    margin-top: 110px;
+
+  .img-end {
+    width: 30px;
+  }
+
+  .leave {
+    margin-top: 30px;
+    color: #f10b0b;
+    font-size: 30px;
     font-weight: bold;
-    font-size: 1.4em;
+    font-family: "Spongebob";
+    line-height: 40px;
+  }
+
+  .credit {
+    font-family: "Montserrat-regular";
+    margin: 160px 50px 0px 50px;
+    text-align: center;
+    z-index: 1;
+    color: #d4b38d;
+    animation: textup 20s forwards;
+    .credit-debut {
+      font-size: 3em;
+      line-height: 100px;
+    }
+    .credit-end {
+      font-size: 3em;
+      line-height: 300px;
+    }
+    .credit-result {
+      font-weight: bold;
+    }
+    .credit-team {
+      margin-top: 110px;
+      font-weight: bold;
+      font-size: 1.4em;
+    }
+  }
+}
+
+.lose {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  background-color: black;
+  width: 100%;
+  z-index: 0;
+
+  .header_end {
+    background-color: black;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    justify-content: space-around;
+    z-index: 2;
+    height: 140px;
+  }
+
+  .title {
+    margin-top: 40px;
+    font-family: "Spongebob";
+    color: red;
+    font-size: 6em;
+  }
+
+  .replay {
+    margin-top: 30px;
+    color: #58b023;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Spongebob";
+    line-height: 40px;
+  }
+
+  .img-end {
+    width: 30px;
+  }
+
+  .leave {
+    margin-top: 30px;
+    color: #f10b0b;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Spongebob";
+    line-height: 40px;
+  }
+
+  .credit {
+    font-family: "Montserrat-regular";
+    margin: 160px 50px 0px 50px;
+    text-align: center;
+    z-index: 1;
+    color: #d4b38d;
+    animation: textup 20s forwards;
+    .credit-debut {
+      font-size: 2.8em;
+      line-height: 100px;
+    }
+    .credit-end {
+      font-size: 2.8em;
+      line-height: 300px;
+    }
+    .credit-result {
+      font-weight: bold;
+    }
+    .credit-team {
+      margin-top: 110px;
+      font-weight: bold;
+      font-size: 1.4em;
+    }
   }
 }
