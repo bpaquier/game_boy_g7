@@ -22,6 +22,13 @@ function game() {
   const $squeezeLifes = document.querySelector('.game-area__squeezeLifes');
   const $timer = document.querySelector('.game-area__timer');
 
+  const $musiqueDeFond = document.querySelector('.musique-de-fond');
+  const $jumpSound = document.querySelector('.jump-sound');
+  const $loseSound = document.querySelector('.lose-sound');
+  const $collapseSound = document.querySelector('.collapse-sound');
+  const $victorySound = document.querySelector('.victory-sound');
+  const $button = document.querySelector('.button');
+
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
   let apparitionBallTemplate;
@@ -37,15 +44,20 @@ function game() {
 
   let brontisIsInvincible = false;
   let squezeeIsInvincible = false;
-  let lifes = 0;
-  let brontisLifes = lifes;
-  let squeezeLifes = lifes;
-  let time = 60;
   let isFighting = false;
   let isShooting = false;
   let isPaused = false;
+  let isMuted = false;
+  let lifes = 10;
+  let brontisLifes = lifes;
+  let squeezeLifes = lifes;
+  let time = 60;
+  let volume = 1;
 
   (function play() {
+    $musiqueDeFond.play();
+    $musiqueDeFond.volume = 0.5;
+    chooseVolume();
     pause();
     moveBrontis();
     moveBrontis();
@@ -59,6 +71,20 @@ function game() {
     lifeIllustration(brontisLifes, $brontisLifes);
   })();
 
+  function chooseVolume() {
+    $button.addEventListener('click', function() {
+      if (!isMuted) {
+        isMuted = true;
+        $musiqueDeFond.pause();
+        $button.innerHTML = 'TURN SOUND ON';
+      } else {
+        isMuted = false;
+        $musiqueDeFond.play();
+        $button.innerHTML = 'TURN SOUND OFF';
+      }
+    });
+  }
+
   function pause() {
     window.addEventListener('keydown', function(key) {
       if (key.keyCode === 80) {
@@ -68,12 +94,14 @@ function game() {
           $brontis.style.display = 'none';
           $squeeze.style.visibility = 'hidden';
           clearInterval(timerTemplate);
+          clearInterval(squeezeThrowDogsFinalTemplate);
         } else {
           isPaused = false;
           $brontis.style.display = 'block';
           $squeeze.style.visibility = 'visible';
           $brontis.classList.add('is-flashing');
           brontisIsInvincible = true;
+          squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
           timeWhileBrontisInvincibleTimeout = setTimeout(
             timeWhileBrontisInvincible,
             3000
@@ -88,6 +116,7 @@ function game() {
 
   function itemsApparition() {
     timer();
+
     let randomTree = appearRandomItem('div', 'trees', 'tree__random', 30);
     let randomCrab = appearRandomItem('div', 'enemy', 'crab', 10);
     brontisHitElt(randomCrab);
@@ -165,18 +194,22 @@ function game() {
   }
 
   function squeezeIsDead() {
+    if (!isMuted) {
+      $victorySound.play();
+    }
+    $musiqueDeFond.pause();
     $squeeze.classList.add('is-dead');
     setTimeout(function() {
       oxo.screens.loadScreen('end', function() {
         const $winDiv = document.querySelector('.win');
         $winDiv.style.visibility = 'visible';
-        window.listenKeyOnce('enter', function() {
+        oxo.inputs.listenKeyOnce('enter', function() {
           oxo.screens.loadScreen('game', function() {
             game();
           });
         });
       });
-    }, 1000);
+    }, 1500);
   }
 
   function moveBrontis() {
@@ -217,6 +250,9 @@ function game() {
 
   function brontisIsJunping() {
     if (!$brontis.classList.contains('is-jumping')) {
+      if (!isMuted) {
+        $jumpSound.play();
+      }
       $brontis.classList.add('is-jumping');
       setTimeout(function() {
         $brontis.classList.remove('is-jumping');
@@ -230,6 +266,11 @@ function game() {
     }
   }
   function brontisIsDead() {
+    if (!isMuted) {
+      $loseSound.play();
+    }
+    $musiqueDeFond.pause();
+
     $brontis.classList.add('is-dead');
     clearAllIntervalAndTimeoutDuringRun();
     setTimeout(function() {
@@ -242,7 +283,7 @@ function game() {
           });
         });
       });
-    }, 1000);
+    }, 2000);
   }
 
   function getRandomNumber(min, max) {
@@ -292,6 +333,9 @@ function game() {
   function brontisHitElt(element) {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
       if (!brontisIsInvincible) {
+        if (!isMuted) {
+          $collapseSound.play();
+        }
         if (brontisLifes > 1) {
           brontisLifes--;
           brontisIsInvincible = true;
@@ -468,6 +512,9 @@ function game() {
     oxo.elements.onCollisionWithElement($squeeze, element, function() {
       element.remove();
       if (!squezeeIsInvincible) {
+        if (!isMuted) {
+          $collapseSound.play();
+        }
         if (squeezeLifes > 1) {
           squezeeIsInvincible = true;
           squeezeLifes--;
@@ -495,6 +542,9 @@ function game() {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
       element.remove();
       if (!brontisIsInvincible) {
+        if (!isMuted) {
+          $collapseSound.play();
+        }
         if (brontisLifes > 1) {
           brontisIsInvincible = true;
           brontisLifes--;
