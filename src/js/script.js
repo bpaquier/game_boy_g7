@@ -1,8 +1,8 @@
-//oxo.inputs.listenKeyOnce('enter', function() {
-oxo.screens.loadScreen('game', function() {
-  game();
+oxo.inputs.listenKeyOnce('enter', function() {
+  oxo.screens.loadScreen('game', function() {
+    game();
+  });
 });
-//});
 
 function endFunction() {
   oxo.inputs.listenKeyOnce('enter', function() {
@@ -37,7 +37,7 @@ function game() {
 
   let brontisIsInvincible = false;
   let squezeeIsInvincible = false;
-  let lifes = 6;
+  let lifes = 0;
   let brontisLifes = lifes;
   let squeezeLifes = lifes;
   let time = 60;
@@ -66,10 +66,12 @@ function game() {
         if (!isPaused) {
           isPaused = true;
           $brontis.style.display = 'none';
+          $squeeze.style.visibility = 'hidden';
           clearInterval(timerTemplate);
         } else {
           isPaused = false;
           $brontis.style.display = 'block';
+          $squeeze.style.visibility = 'visible';
           $brontis.classList.add('is-flashing');
           brontisIsInvincible = true;
           timeWhileBrontisInvincibleTimeout = setTimeout(
@@ -164,6 +166,17 @@ function game() {
 
   function squeezeIsDead() {
     $squeeze.classList.add('is-dead');
+    setTimeout(function() {
+      oxo.screens.loadScreen('end', function() {
+        const $winDiv = document.querySelector('.win');
+        $winDiv.style.visibility = 'visible';
+        window.listenKeyOnce('enter', function() {
+          oxo.screens.loadScreen('game', function() {
+            game();
+          });
+        });
+      });
+    }, 1000);
   }
 
   function moveBrontis() {
@@ -219,6 +232,17 @@ function game() {
   function brontisIsDead() {
     $brontis.classList.add('is-dead');
     clearAllIntervalAndTimeoutDuringRun();
+    setTimeout(function() {
+      oxo.screens.loadScreen('end', function() {
+        const $loseDiv = document.querySelector('.lose');
+        $loseDiv.style.visibility = 'visible';
+        oxo.inputs.listenKeyOnce('enter', function() {
+          oxo.screens.loadScreen('game', function() {
+            game();
+          });
+        });
+      });
+    }, 1000);
   }
 
   function getRandomNumber(min, max) {
