@@ -22,7 +22,7 @@
 }
 
 .win {
-  background-color: black;
+  background-image: url("../img/fondend.png");
   width: 300vh;
   z-index: 0;
 }
@@ -81,6 +81,7 @@
   z-index: 1;
   color: #d4b38d;
   animation: textup 20s forwards;
+  font-family: "Montserrat-regular";
   .credit-debut {
     font-size: 3em;
     line-height: 100px;
