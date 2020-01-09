@@ -1,8 +1,8 @@
-oxo.inputs.listenKeyOnce('enter', function() {
-  oxo.screens.loadScreen('game', function() {
-    game();
-  });
+//oxo.inputs.listenKeyOnce('enter', function() {
+oxo.screens.loadScreen('game', function() {
+  game();
 });
+//});
 
 function endFunction() {
   oxo.inputs.listenKeyOnce('enter', function() {
@@ -14,6 +14,7 @@ function endFunction() {
 
 function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
+  const $pauseOverlay = document.querySelector('.game-area__pause-overlay');
   const $gameArea = document.querySelector('.game-area');
   const $brontis = document.querySelector('.brontis');
   const $squeeze = document.querySelector('.squeeze');
@@ -26,11 +27,13 @@ function game() {
   let apparitionBallTemplate;
   let apparitionDogTemplate;
   let timerTemplate;
+  let squeezeThrowDogsFinalTemplate;
 
   let crabRandomApparitionTemplate;
   let treeRandomApparitionTemplate;
   let ballRandomApparitionTemplate;
   let dogRandomApparitionTemplate;
+  let timeWhileBrontisInvincibleTimeout;
 
   let brontisIsInvincible = false;
   let squezeeIsInvincible = false;
@@ -40,8 +43,11 @@ function game() {
   let time = 60;
   let isFighting = false;
   let isShooting = false;
+  let isPaused = false;
 
   (function play() {
+    pause();
+    moveBrontis();
     moveBrontis();
     itemsApparition();
     addSqueez();
@@ -52,6 +58,31 @@ function game() {
     $originalTrees.classList.add('is-moving');
     lifeIllustration(brontisLifes, $brontisLifes);
   })();
+
+  function pause() {
+    window.addEventListener('keydown', function(key) {
+      if (key.keyCode === 80) {
+        $pauseOverlay.classList.toggle('is-visible');
+        if (!isPaused) {
+          isPaused = true;
+          $brontis.style.display = 'none';
+          clearInterval(timerTemplate);
+        } else {
+          isPaused = false;
+          $brontis.style.display = 'block';
+          $brontis.classList.add('is-flashing');
+          brontisIsInvincible = true;
+          timeWhileBrontisInvincibleTimeout = setTimeout(
+            timeWhileBrontisInvincible,
+            3000
+          );
+          if (!isFighting) {
+            timerTemplate = setInterval(timer, 1000);
+          }
+        }
+      }
+    });
+  }
 
   function itemsApparition() {
     timer();
@@ -94,7 +125,7 @@ function game() {
     }, 11000);
   }
 
-  function clearAllIntervalAndTimeout() {
+  function clearAllIntervalAndTimeoutDuringRun() {
     clearInterval(timerTemplate);
     clearInterval(apparitionCrabTemplate);
     clearInterval(appartionTreeTemplate);
@@ -149,15 +180,12 @@ function game() {
             brontisIsBendingDown();
           }
           break;
-
         case 'right':
-          oxo.animation.move($brontis, 'right', 4, true);
           if (!$brontis.classList.contains('is-running')) {
             $brontis.classList.add('is-running');
           }
           break;
         case 'left':
-          oxo.animation.move($brontis, 'left', 4, true);
           if (!$brontis.classList.contains('is-running')) {
             $brontis.classList.add('is-running');
           }
@@ -190,7 +218,7 @@ function game() {
   }
   function brontisIsDead() {
     $brontis.classList.add('is-dead');
-    clearAllIntervalAndTimeout();
+    clearAllIntervalAndTimeoutDuringRun();
   }
 
   function getRandomNumber(min, max) {
@@ -245,15 +273,21 @@ function game() {
           brontisIsInvincible = true;
           $brontis.classList.add('is-flashing');
           lifeIllustration(brontisLifes, $brontisLifes);
-          setTimeout(function() {
-            $brontis.classList.remove('is-flashing');
-            brontisIsInvincible = false;
-          }, 3000);
+
+          timeWhileBrontisInvincibleTimeout = setTimeout(
+            timeWhileBrontisInvincible,
+            3000
+          );
         } else {
           brontisIsDead();
         }
       }
     });
+  }
+
+  function timeWhileBrontisInvincible() {
+    $brontis.classList.remove('is-flashing');
+    brontisIsInvincible = false;
   }
 
   function freezeTrees() {
@@ -268,7 +302,7 @@ function game() {
     oxo.elements.onCollisionWithElement($brontis, $squeeze, function() {
       if (!isFighting) {
         $timer.innerHTML = '';
-        clearAllIntervalAndTimeout();
+        clearAllIntervalAndTimeoutDuringRun();
         freezeTrees();
         fight();
       }
@@ -288,18 +322,7 @@ function game() {
       replaceSqueeze();
     }, 500);
 
-    setInterval(function() {
-      let squeezeWeapon = createWeapon(
-        'div',
-        'squeeze-dog',
-        $squeeze,
-        'left',
-        150,
-        -150
-      );
-      $gameArea.appendChild(squeezeWeapon);
-      hitBrontis(squeezeWeapon);
-    }, 2000);
+    squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
   }
 
   function moveDuringFight() {
@@ -325,7 +348,8 @@ function game() {
               $brontis,
               'right',
               80,
-              0
+              0,
+              1
             );
             $gameArea.appendChild(brontisWeapon);
             hitSqueeze(brontisWeapon);
@@ -370,13 +394,28 @@ function game() {
     $squeeze.classList.remove('is-running');
   }
 
+  function squeezeThrowDogs() {
+    let squeezeWeapon = createWeapon(
+      'div',
+      'squeeze-dog',
+      $squeeze,
+      'left',
+      150,
+      -150,
+      2
+    );
+    $gameArea.appendChild(squeezeWeapon);
+    hitBrontis(squeezeWeapon);
+  }
+
   function createWeapon(
     type,
     classname,
     owner,
     direction,
     Yvariation,
-    Xvariation
+    Xvariation,
+    speed
   ) {
     const element = document.createElement(type);
     element.classList.add(classname);
@@ -389,7 +428,7 @@ function game() {
     element.style.left = positionX + position.x + 'px';
 
     setInterval(function() {
-      oxo.animation.move(element, direction, 1, true);
+      oxo.animation.move(element, direction, speed, true);
     }, 1);
     return element;
   }
