@@ -9,7 +9,7 @@
     src: url("../fonts/MontserratAlternates-Medium.woff") format("woff");
 }
 
-article {
+main {
 
     background-image: url("../img/beach-background.png");
     background-size: 100%;
@@ -17,8 +17,6 @@ article {
 
     .title-htp {
         background-color: rgba(0, 0, 0, 0.301);
-        width: 25%;
-        border-radius: 2em;
         text-align: center;
         margin: auto;
         justify-content: center;
@@ -32,19 +30,11 @@ article {
         font-family: "Spongebob";
     }
 
-    .text-story {
-        width: 50%;
-        position: relative;
-        padding: 1.5em;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     .explain-gameplay {
         display: inline-flex;
         width: 0;
         justify-content: space-between;
+        padding-top: 2em;
     }
 
     .zone-gameplay1,
@@ -65,24 +55,34 @@ article {
         color: #d4b38d;
     }
 
+
+    .img-gameplay1,
+    .img-gameplay2,
+    .img-gameplay3,
+    .img-gameplay4,
+    .img-gameplay5 {
+        display: flex;
+        margin: auto;
+    }
+
     .img-gameplay1,
     .img-gameplay5 {
-        width: 10em;
+        width: 8em;
         padding: 30px 0 10px 0;
     }
 
     .img-gameplay2 {
-        width: 6em;
+        width: 5em;
         padding: 10px 0 10px 0;
     }
 
     .img-gameplay3 {
-        width: 10em;
+        width: 8em;
         padding: 10px 0 10px 0;
     }
 
     .img-gameplay4 {
-        width: 11em;
+        width: 9em;
         padding: 30px 0 10px 0;
     }
 
@@ -95,6 +95,7 @@ article {
         text-align: center;
         margin: auto;
         display: flex;
+        padding-bottom: 0.2em;
     }
 
     .key-gameplay1,
@@ -104,40 +105,60 @@ article {
 
     .key-gameplay3 {
         width: 12em;
-        padding-top: 1.5em;
+        padding-top: 1em;
     }
 
     .key-gameplay4 {
-        width: 4em;
+        width: 3em;
     }
 
     .key-gameplay5 {
-        width: 4em;
+        width: 5em;
     }
 
 
-    .box-play {
-        padding: 1em;
-        margin-left: 2%;
-    }
+    article.story-play {
 
-    .enter-play {
-        display: flex;
-        background-color: rgba(0, 0, 0, 0.301);
-        margin: auto;
-        text-align: center;
-        width: 10%;
-        justify-content: center;
-        border-radius: 0.5em;
-        padding: 0.5em;
-    }
+        display: inline-flex;
+        padding: 2em;
 
-    .play {
-        text-align: center;
-        font-weight: bold;
-        color: #D4B38D;
-        font-size: 15px;
-        font-family: "Spongebob";
-        letter-spacing: 0.1em;
+        .text-story {
+            background-color: rgba(0, 0, 0, 0.301);
+            border-radius: 0.5em;
+            width: 63%;
+            padding: 1.5em;
+            text-align: center;
+            margin-left: 4.9%;
+            font-size: 22px;
+            font-weight: bold;
+            color: #D4B38D;
+            line-height: 1.25em;
+        }
+
+        .box-play {
+            padding: 1em;
+            text-align: center;
+            margin: auto;
+        }
+
+        .enter-play {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.301);
+            margin: auto;
+            text-align: center;
+            justify-content: center;
+            border-radius: 0.5em;
+            padding: 1em;
+        }
+
+        .play {
+            text-align: center;
+            font-weight: bold;
+            color: #D4B38D;
+            font-size: 20px;
+            font-family: "Spongebob";
+            letter-spacing: 0.1em;
+            line-height: 1.5em;
+        }
     }
 }
