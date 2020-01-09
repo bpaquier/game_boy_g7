@@ -25,13 +25,13 @@ function game() {
   const $brontisLifes = document.querySelector('.game-area__brontisLifes');
   const $squeezeLifes = document.querySelector('.game-area__squeezeLifes');
   const $timer = document.querySelector('.game-area__timer');
+  const $button = document.querySelector('.button');
 
-  const $musiqueDeFond = document.querySelector('.musique-de-fond');
+  let $musiqueDeFond = document.querySelector('.musique-de-fond');
   const $jumpSound = document.querySelector('.jump-sound');
   const $loseSound = document.querySelector('.lose-sound');
   const $collapseSound = document.querySelector('.collapse-sound');
   const $victorySound = document.querySelector('.victory-sound');
-  const $button = document.querySelector('.button');
 
   let apparitionCrabTemplate;
   let appartionTreeTemplate;
@@ -144,9 +144,9 @@ function game() {
     apparitionBallTemplate = setInterval(function() {
       ballRandomApparitionTemplate = setTimeout(
         appearRandomBall,
-        getRandomNumber(3000, 5000)
+        getRandomNumber(1000, 2000)
       );
-    }, 6000);
+    }, 4000);
 
     apparitionDogTemplate = setInterval(function() {
       dogRandomApparitionTemplate = setTimeout(function() {
@@ -156,8 +156,8 @@ function game() {
           brontisHitElt(randomDog);
           $squeeze.classList.remove('is-throwing-back');
         }, 300);
-      }, getRandomNumber(2000, 4000));
-    }, 11000);
+      }, getRandomNumber(1000, 4000));
+    }, 6000);
   }
 
   function clearAllIntervalAndTimeoutDuringRun() {
@@ -209,7 +209,7 @@ function game() {
         $winDiv.style.visibility = 'visible';
         endPage();
       });
-    }, 1500);
+    }, 2000);
   }
 
   function moveBrontis() {
@@ -376,6 +376,11 @@ function game() {
   ////////////////////////////////////////////////////FIGHT/////////////////////////////////////////////
 
   function fight() {
+    $musiqueDeFond.remove();
+    $musiqueDeFond = document.querySelector('.fight-sound');
+    if (!isMuted) {
+      $musiqueDeFond.play();
+    }
     isFighting = true;
     removeEnemies();
     resetLifes();
