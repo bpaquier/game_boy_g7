@@ -1,37 +1,58 @@
 <div class="game-area">
-  <div class="game-area__pause-overlay"><p>PAUSE</p></div>
-  <div class="game-area__ground"></div>
-  <div class="game-area__sea"></div>
-  <div class="game-area__boat boat"></div>
-  <div class="game-area__archemede archemede"></div>
-  <div class="game-area__cloud cloud"></div>
-  <div class="game-area__trees trees">
-    <div class="trees tree__1"></div>
-    <div class="trees tree__2"></div>
-  </div>
-  <div
-    class="game-area__character brontis "
-    data-oxo-movable
-    data-oxo-speed="10"
-  ></div>
-  <div class="game-area__character squeeze"></div>
-  <div class="game-area__island"></div>
-  <div class="game-area__sun"></div>
-  <div class="game-area__brontisLifes"></div>
-  <div class="game-area__squeezeLifes"></div>
-  <div class="game-area__timer"></div>
-  <audio
-    class="game__area-sound musique-de-fond"
-    src="/sound/musiquefond.mp3"
-    loop
-  ></audio>
-  <audio class="game__area-sound jump-sound" src="/sound/jump.mp3"></audio>
-  <audio class="game__area-sound lose-sound" src="/sound/lose.mp3"></audio>
-  <audio class="game__area-sound collapse-sound" src="/sound/ouch.mp3"></audio>
-  <audio
-    class="game__area-sound victory-sound"
-    src="/sound/victory.mp3"
-  ></audio>
-  <audio class="game__area-sound fight-sound" src="/sound/D12 - Fight Music.mp3"></audio>
-  <div class="button">TURN SOUND OFF</button>
+  <section class="game-area__backround">
+    <div class="game-area__start-overlay start-overlay">
+      <p class="countdown"></p>
+    </div>
+    <div class="game-area__pause-overlay"><p>PAUSE</p></div>
+    <div class="game-area__ground"></div>
+    <div class="game-area__sea"></div>
+    <div class="game-area__boat boat"></div>
+    <div class="game-area__archemede archemede"></div>
+    <div class="game-area__cloud cloud"></div>
+    <div class="game-area__trees trees">
+      <div class="trees tree__1"></div>
+      <div class="trees tree__2"></div>
+    </div>
+    <div class="game-area__island"></div>
+    <div class="game-area__overlay-fight overlay-fight"></div>
+    <div class="game__area__fight-text fight-text"><p>FIGHT</p></div>
+  </section>
+
+  <section class="game-area__characters">
+    <div
+      class="game-area__character brontis "
+      data-oxo-movable
+      data-oxo-speed="8"
+    ></div>
+    <div class="game-area__character squeeze"></div>
+  </section>
+
+  <section class="game-area__items">
+    <div class="game-area__brontisLifes"></div>
+    <div class="game-area__squeezeLifes"></div>
+    <div class="game-area__timer"></div>
+    <div class="sound-control">TURN SOUND OFF</div>
+  </section>
+
+  <section class="game-area__sounds">
+    <audio
+      class="game__area-sound musique-de-fond"
+      src="/sound/musiquefond.mp3"
+      loop
+    ></audio>
+    <audio class="game__area-sound jump-sound" src="/sound/jump.mp3"></audio>
+    <audio class="game__area-sound lose-sound" src="/sound/lose.mp3"></audio>
+    <audio
+      class="game__area-sound collapse-sound"
+      src="/sound/ouch.mp3"
+    ></audio>
+    <audio
+      class="game__area-sound victory-sound"
+      src="/sound/victory.mp3"
+    ></audio>
+    <audio
+      class="game__area-sound fight-sound"
+      src="/sound/D12 - Fight Music.mp3"
+    ></audio>
+  </section>
 </div>
