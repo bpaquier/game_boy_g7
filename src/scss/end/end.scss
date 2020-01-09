@@ -57,11 +57,11 @@
     color: #d4b38d;
     animation: textup 20s forwards;
     .credit-debut {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 100px;
     }
     .credit-end {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 300px;
     }
     .credit-result {
@@ -79,6 +79,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   visibility: hidden;
   background-color: black;
   width: 100%;
@@ -139,7 +140,7 @@
     }
     .credit-end {
       font-size: 2.8em;
-      line-height: 300px;
+      line-height: 100px;
     }
     .credit-result {
       font-weight: bold;
