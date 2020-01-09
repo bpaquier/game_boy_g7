@@ -4,11 +4,15 @@ oxo.inputs.listenKeyOnce('enter', function() {
   });
 });
 
-function endFunction() {
-  oxo.inputs.listenKeyOnce('enter', function() {
-    oxo.screens.loadScreen('game', function() {
-      game();
-    });
+function endPage() {
+  document.addEventListener('keydown', function(key) {
+    if (key.keyCode === 13) {
+      oxo.screens.loadScreen('game', function() {
+        game();
+      });
+    } else if (key.keyCode === 77) {
+      oxo.screens.loadScreen('home', function() {});
+    }
   });
 }
 
@@ -48,7 +52,7 @@ function game() {
   let isShooting = false;
   let isPaused = false;
   let isMuted = false;
-  let lifes = 10;
+  let lifes = 5;
   let brontisLifes = lifes;
   let squeezeLifes = lifes;
   let time = 60;
@@ -203,11 +207,7 @@ function game() {
       oxo.screens.loadScreen('end', function() {
         const $winDiv = document.querySelector('.win');
         $winDiv.style.visibility = 'visible';
-        oxo.inputs.listenKeyOnce('enter', function() {
-          oxo.screens.loadScreen('game', function() {
-            game();
-          });
-        });
+        endPage();
       });
     }, 1500);
   }
@@ -277,11 +277,7 @@ function game() {
       oxo.screens.loadScreen('end', function() {
         const $loseDiv = document.querySelector('.lose');
         $loseDiv.style.visibility = 'visible';
-        oxo.inputs.listenKeyOnce('enter', function() {
-          oxo.screens.loadScreen('game', function() {
-            game();
-          });
-        });
+        endPage();
       });
     }, 2000);
   }
@@ -390,7 +386,13 @@ function game() {
       replaceSqueeze();
     }, 500);
 
-    squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
+    squeezeThrowDogsFinalTemplate = setInterval(function() {
+      $squeeze.classList.add('is-throwing');
+      setTimeout(function() {
+        squeezeThrowDogs();
+        $squeeze.classList.remove('is-throwing');
+      }, 400);
+    }, 2000);
   }
 
   function moveDuringFight() {

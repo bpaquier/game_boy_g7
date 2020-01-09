@@ -25,6 +25,9 @@
   height: 240px;
   animation: squeeze-move-when-fighting 5s linear infinite;
 }
+.squeeze.ready-to-fight.is-throwing {
+  background-image: url('/img/Squeezie-Rambo.gif');
+}
 
 .squeeze.ready-to-fight.is-dead {
   animation: loose 1s ease-out forwards;
