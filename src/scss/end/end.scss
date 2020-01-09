@@ -3,6 +3,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   background-color: black;
   z-index: 0;
 
@@ -21,52 +22,46 @@
 
   .title {
     margin-top: 40px;
-    font-family: 'Spongebob';
+    font-family: "Spongebob";
     color: #58b023;
     font-size: 6em;
   }
 
   .replay {
-    margin-top: 50px;
+    margin-top: 30px;
     color: #58b023;
-    text-decoration: none;
-    width: 226.35px;
-    height: 40px;
-    background-color: transparent;
-    border: transparent;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'Spongebob';
-    cursor: pointer;
-    z-index: 4;
+    font-family: "Spongebob";
+    line-height: 40px;
+  }
+
+  .img-end {
+    width: 30px;
   }
 
   .leave {
-    margin-top: 50px;
+    margin-top: 30px;
     color: #f10b0b;
-    text-decoration: none;
-    width: 226.35px;
-    height: 40px;
-    background-color: transparent;
-    border: transparent;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'Spongebob';
-    cursor: pointer;
+    font-family: "Spongebob";
+    line-height: 40px;
   }
 
   .credit {
+    font-family: "Montserrat-regular";
     margin: 160px 50px 0px 50px;
     text-align: center;
     z-index: 1;
     color: #d4b38d;
     animation: textup 20s forwards;
     .credit-debut {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 100px;
     }
     .credit-end {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 300px;
     }
     .credit-result {
@@ -84,6 +79,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   visibility: hidden;
   background-color: black;
   width: 100%;
@@ -104,51 +100,46 @@
 
   .title {
     margin-top: 40px;
-    font-family: 'Spongebob';
+    font-family: "Spongebob";
     color: red;
     font-size: 6em;
   }
 
   .replay {
-    margin-top: 50px;
+    margin-top: 30px;
     color: #58b023;
-    text-decoration: none;
-    width: 226.35px;
-    height: 40px;
-    background-color: transparent;
-    border: transparent;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'Spongebob';
-    cursor: pointer;
+    font-family: "Spongebob";
+    line-height: 40px;
+  }
+
+  .img-end {
+    width: 30px;
   }
 
   .leave {
-    margin-top: 50px;
+    margin-top: 30px;
     color: #f10b0b;
-    text-decoration: none;
-    width: 226.35px;
-    height: 40px;
-    background-color: transparent;
-    border: transparent;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'Spongebob';
-    cursor: pointer;
+    font-family: "Spongebob";
+    line-height: 40px;
   }
 
   .credit {
+    font-family: "Montserrat-regular";
     margin: 160px 50px 0px 50px;
     text-align: center;
     z-index: 1;
     color: #d4b38d;
     animation: textup 20s forwards;
     .credit-debut {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 100px;
     }
     .credit-end {
-      font-size: 3em;
+      font-size: 2.8em;
       line-height: 300px;
     }
     .credit-result {
