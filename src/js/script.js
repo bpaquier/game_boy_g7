@@ -65,6 +65,8 @@ function game() {
   let ballRandomApparitionTemplate;
   let dogRandomApparitionTemplate;
 
+  let squeezeWeapon;
+
   let brontisIsInvincible = false;
   let squezeeIsInvincible = false;
   let isFighting = false;
@@ -347,8 +349,11 @@ function game() {
     }, 2000);
   }
 
-  function brontisHitElt(element) {
+  function brontisHitElt(element, remove = false) {
     oxo.elements.onCollisionWithElement($brontis, element, function() {
+      if (remove) {
+        element.remove();
+      }
       if (!brontisIsInvincible) {
         if (!isMuted) {
           $collapseSound.play();
@@ -450,7 +455,6 @@ function game() {
               0,
               1
             );
-            $gameArea.appendChild(brontisWeapon);
             hitSqueeze(brontisWeapon);
             $brontis.classList.remove('is-throwing');
           }, 300);
@@ -497,7 +501,7 @@ function game() {
   }
 
   function squeezeThrowDogs() {
-    let squeezeWeapon = createWeapon(
+    squeezeWeapon = createWeapon(
       'div',
       'squeeze-dog',
       $squeeze,
@@ -506,8 +510,7 @@ function game() {
       -150,
       2
     );
-    $gameArea.appendChild(squeezeWeapon);
-    hitBrontis(squeezeWeapon);
+    brontisHitElt(squeezeWeapon, true);
   }
 
   function createWeapon(
@@ -521,21 +524,15 @@ function game() {
   ) {
     const element = document.createElement(type);
     element.classList.add(classname);
-
     let position = oxo.animation.getPosition(owner);
+    $gameArea.appendChild(element);
     let positionY = owner.offsetTop + Yvariation;
     let positionX = owner.offsetLeft + owner.offsetWidth + Xvariation;
-
     element.style.top = positionY + 'px';
     element.style.left = positionX + position.x + 'px';
-
     setInterval(function() {
       oxo.animation.move(element, direction, speed, true);
     }, 1);
-    return element;
-  }
-
-  function hitSqueeze(element) {
     oxo.elements.onLeaveScreenOnce(
       element,
       function() {
@@ -543,6 +540,10 @@ function game() {
       },
       true
     );
+    return element;
+  }
+
+  function hitSqueeze(element) {
     oxo.elements.onCollisionWithElement($squeeze, element, function() {
       element.remove();
       if (!squezeeIsInvincible) {
@@ -560,36 +561,6 @@ function game() {
           }, 2000);
         } else {
           squeezieIsDead();
-        }
-      }
-    });
-  }
-
-  function hitBrontis(element) {
-    oxo.elements.onLeaveScreenOnce(
-      element,
-      function() {
-        element.remove();
-      },
-      true
-    );
-    oxo.elements.onCollisionWithElement($brontis, element, function() {
-      element.remove();
-      if (!brontisIsInvincible) {
-        if (!isMuted) {
-          $collapseSound.play();
-        }
-        if (brontisLifes > 1) {
-          brontisIsInvincible = true;
-          brontisLifes--;
-          lifeIllustration(brontisLifes, $brontisLifes);
-          $brontis.classList.add('is-flashing');
-          setTimeout(function() {
-            $brontis.classList.remove('is-flashing');
-            brontisIsInvincible = false;
-          }, 3000);
-        } else {
-          brontisIsDead();
         }
       }
     });
