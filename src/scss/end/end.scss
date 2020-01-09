@@ -1,4 +1,4 @@
-.win, 
+.win,
 .lose {
   visibility: hidden;
   position: absolute;
@@ -23,7 +23,7 @@
 
   .title {
     margin-top: 40px;
-    font-family: "Spongebob";
+    font-family: 'Spongebob';
     color: #58b023;
     font-size: 6em;
   }
@@ -33,7 +33,7 @@
     color: #58b023;
     font-size: 30px;
     font-weight: bold;
-    font-family: "Spongebob";
+    font-family: 'Spongebob';
     line-height: 40px;
   }
 
@@ -46,12 +46,12 @@
     color: #f10b0b;
     font-size: 30px;
     font-weight: bold;
-    font-family: "Spongebob";
+    font-family: 'Spongebob';
     line-height: 40px;
   }
 
   .credit {
-    font-family: "Montserrat-regular";
+    font-family: 'Montserrat-regular';
     margin: 160px 50px 0px 50px;
     text-align: center;
     z-index: 1;
@@ -62,7 +62,8 @@
       display: block;
     }
 
-    .credit-debut, .credit-end {
+    .credit-debut,
+    .credit-end {
       font-size: 2.8em;
     }
 
@@ -72,7 +73,8 @@
     .credit-end {
       line-height: 300px;
     }
-    .credit-result, .credit-team {
+    .credit-result,
+    .credit-team {
       font-weight: bold;
     }
     .credit-team {
@@ -89,10 +91,16 @@
 }
 
 .lose {
-
   .title {
     color: red;
-
   }
+}
 
+.replay__key,
+.leave__key {
+  font-size: 1.5em;
+}
+
+.credit-team__name {
+  margin-bottom: 20px;
 }
