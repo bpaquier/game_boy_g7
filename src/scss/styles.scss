@@ -2,6 +2,7 @@
 
 @import 'global/variables.scss';
 @import 'global/layout';
+@import 'global/fonts.scss';
 
 @import 'animations/animations.scss';
 
@@ -9,6 +10,8 @@
 
 @import 'characters/brontis.scss';
 @import 'characters/squeeze.scss';
+
+@import 'end/end.scss';
 
 @import 'obstacles/obstacles.scss';
 

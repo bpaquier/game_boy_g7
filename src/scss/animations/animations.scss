@@ -7,6 +7,46 @@
   }
 }
 
+@keyframes jump-when-fighting {
+  from {
+    bottom: $ground-height;
+  }
+  to {
+    bottom: $ground-height + 180;
+  }
+}
+
+@keyframes squeeze-move-when-fighting {
+  15% {
+    left: 900px;
+    bottom: $ground-height;
+  }
+  30% {
+    left: 800px;
+    bottom: $ground-height;
+  }
+  45% {
+    left: 800px;
+    bottom: $ground-height + 180;
+  }
+  60% {
+    left: 800px;
+    bottom: $ground-height;
+  }
+  75% {
+    left: 700px;
+    bottom: $ground-height;
+  }
+  90% {
+    left: 800px;
+    bottom: $ground-height;
+  }
+  to {
+    left: 800px;
+    bottom: $ground-height;
+  }
+}
+
 @keyframes move-to-left {
   to {
     transform: translateX(-100vw);
@@ -55,5 +95,17 @@
   }
   to {
     bottom: $ground-height - 500;
+  }
+}
+
+@keyframes defiler {
+  25% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50vh);
+  }
+  100% {
+    transform: translateY(-170vh);
   }
 }

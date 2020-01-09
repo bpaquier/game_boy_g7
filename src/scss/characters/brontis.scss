@@ -38,16 +38,27 @@
     is-flashing 0.5s alternate infinite;
 }
 
-.brontis.is-dead {
-  animation: loose 1s ease-out forwards;
-  background-image: url('/img/Brontis-dead.png');
-}
-
 .brontis.ready-to-fight {
   background-image: url('/img/Brontis-Static.png');
   left: -900px;
   width: 140px;
   height: 240px;
+}
+
+.brontis.ready-to-fight.is-throwing {
+  background-image: url('/img/Brontis-Rambo.gif');
+}
+
+.brontis.ready-to-fight.is-running.is-throwing {
+  background-image: url('/img/Brontis-Rambo.gif');
+}
+
+.brontis.ready-to-fight.is-jumping.is-throwing {
+  background-image: url('/img/Brontis-Rambo.gif');
+}
+
+.brontis.ready-to-fight.is-flashing.is-throwing {
+  background-image: url('/img/Brontis-Rambo.gif');
 }
 
 .brontis.ready-to-fight.is-bending-down {
@@ -67,18 +78,37 @@
 }
 
 .brontis.ready-to-fight.is-jumping {
-  animation: jump 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99) alternate infinite;
+  animation: jump-when-fighting 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99)
+    alternate infinite;
   background-image: url('/img/Brontis-saut.png');
+}
+
+.brontis.is-running.ready-to-fight.is-jumping {
+  animation: jump-when-fighting 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99)
+    alternate infinite;
+  background-image: url('/img/Brontis-saut.png');
+}
+
+.brontis.ready-to-fight.is-jumping.is-flashing {
+  animation: jump-when-fighting 0.5s cubic-bezier(0.46, 1.06, 0.64, 0.99)
+      alternate infinite,
+    is-flashing 0.5s alternate infinite;
 }
 
 .brontis.ready-to-fight.is-running {
   background-image: url('/img/Brontis-Marche.gif');
 }
 
+.brontis.is-dead {
+  animation: loose 1s ease-out forwards;
+  background-image: url('/img/Brontis-dead.png');
+}
+
 .weapon {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: black;
+  width: 70px;
+  height: 70px;
+  background-image: url('/img/Jet2Coco.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
