@@ -1,6 +1,8 @@
+// LOADING SCREENS FUNCTIONS
+
 oxo.inputs.listenKeyOnce('enter', function() {
   oxo.screens.loadScreen('game', function() {
-    game();
+    countdown();
   });
 });
 
@@ -16,6 +18,24 @@ function endPage() {
   });
 }
 
+// GAMES FUNCTIONS
+function countdown() {
+  let countdownStart = 3;
+  const $countdown = document.querySelector('.countdown');
+  $countdown.innerHTML = countdownStart;
+  let countdownTemplate = setInterval(function() {
+    if (countdownStart > 0) {
+      $countdown.innerHTML = countdownStart--;
+    } else {
+      $countdown.innerHTML = 'GO!';
+      clearInterval(countdownTemplate);
+      setTimeout(function() {
+        game();
+        document.querySelector('.start-overlay').style.display = 'none';
+      }, 1000);
+    }
+  }, 1000);
+}
 function game() {
   const $originalTrees = document.querySelector('.game-area__trees');
   const $pauseOverlay = document.querySelector('.game-area__pause-overlay');
@@ -25,7 +45,7 @@ function game() {
   const $brontisLifes = document.querySelector('.game-area__brontisLifes');
   const $squeezeLifes = document.querySelector('.game-area__squeezeLifes');
   const $timer = document.querySelector('.game-area__timer');
-  const $button = document.querySelector('.button');
+  const $button = document.querySelector('.sound-control');
 
   let $musiqueDeFond = document.querySelector('.musique-de-fond');
   const $jumpSound = document.querySelector('.jump-sound');
@@ -44,7 +64,6 @@ function game() {
   let treeRandomApparitionTemplate;
   let ballRandomApparitionTemplate;
   let dogRandomApparitionTemplate;
-  let timeWhileBrontisInvincibleTimeout;
 
   let brontisIsInvincible = false;
   let squezeeIsInvincible = false;
@@ -56,7 +75,6 @@ function game() {
   let brontisLifes = lifes;
   let squeezeLifes = lifes;
   let time = 60;
-  let volume = 1;
 
   (function play() {
     $musiqueDeFond.play();
@@ -66,7 +84,7 @@ function game() {
     moveBrontis();
     moveBrontis();
     itemsApparition();
-    addSqueez();
+    addSqueezie();
     setTimeout(function() {
       brontisCatchSqueeze();
     }, 500);
@@ -74,6 +92,8 @@ function game() {
     $originalTrees.classList.add('is-moving');
     lifeIllustration(brontisLifes, $brontisLifes);
   })();
+
+  // global functions
 
   function chooseVolume() {
     $button.addEventListener('click', function() {
@@ -106,71 +126,13 @@ function game() {
           $brontis.classList.add('is-flashing');
           brontisIsInvincible = true;
           squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
-          timeWhileBrontisInvincibleTimeout = setTimeout(
-            timeWhileBrontisInvincible,
-            3000
-          );
+          setTimeout(brontisIsNoMoreInvincible, 3000);
           if (!isFighting) {
             timerTemplate = setInterval(timer, 1000);
           }
         }
       }
     });
-  }
-
-  function itemsApparition() {
-    timer();
-
-    let randomTree = appearRandomItem('div', 'trees', 'tree__random', 30);
-    let randomCrab = appearRandomItem('div', 'enemy', 'crab', 10);
-    brontisHitElt(randomCrab);
-
-    timerTemplate = setInterval(timer, 1000);
-
-    apparitionCrabTemplate = setInterval(function() {
-      crabRandomApparitionTemplate = setTimeout(function() {
-        randomCrab = appearRandomItem('div', 'enemy', 'crab', 10);
-        brontisHitElt(randomCrab);
-      }, getRandomNumber(1000, 2000));
-    }, 3000);
-
-    appartionTreeTemplate = setInterval(function() {
-      treeRandomApparitionTemplate = setTimeout(function() {
-        randomTree = appearRandomItem('div', 'trees', 'tree__random', 30);
-        randomTree.style.width = getRandomNumber(150, 350) + 'px';
-      }, getRandomNumber(3000, 7000));
-    }, 8000);
-
-    apparitionBallTemplate = setInterval(function() {
-      ballRandomApparitionTemplate = setTimeout(
-        appearRandomBall,
-        getRandomNumber(1000, 2000)
-      );
-    }, 4000);
-
-    apparitionDogTemplate = setInterval(function() {
-      dogRandomApparitionTemplate = setTimeout(function() {
-        $squeeze.classList.add('is-throwing-back');
-        setTimeout(function() {
-          let randomDog = appearRandomItem('div', 'enemy', 'dog', 4);
-          brontisHitElt(randomDog);
-          $squeeze.classList.remove('is-throwing-back');
-        }, 300);
-      }, getRandomNumber(1000, 4000));
-    }, 6000);
-  }
-
-  function clearAllIntervalAndTimeoutDuringRun() {
-    clearInterval(timerTemplate);
-    clearInterval(apparitionCrabTemplate);
-    clearInterval(appartionTreeTemplate);
-    clearInterval(apparitionBallTemplate);
-    clearInterval(apparitionDogTemplate);
-
-    clearTimeout(crabRandomApparitionTemplate);
-    clearTimeout(treeRandomApparitionTemplate);
-    clearTimeout(ballRandomApparitionTemplate);
-    clearTimeout(dogRandomApparitionTemplate);
   }
 
   function lifeIllustration(nbLife, eltParent) {
@@ -193,16 +155,119 @@ function game() {
     }
   }
 
-  function addSqueez() {
+  function getRandomNumber(min, max) {
+    let number;
+    do {
+      number = Math.floor(Math.random() * max);
+    } while (number < min);
+    return number;
+  }
+
+  // items Functions
+
+  function itemsApparition() {
+    timer();
+    addRandomItems('div', 'trees', 'tree__random', 30);
+    addRandomItems('div', 'enemy', 'crab', 10, true);
+    timerTemplate = setInterval(timer, 1000);
+    $button.style.visibility = 'visible';
+
+    apparitionCrabTemplate = setInterval(function() {
+      crabRandomApparitionTemplate = setTimeout(function() {
+        addRandomItems('div', 'enemy', 'crab', 10, true);
+      }, getRandomNumber(1000, 2000));
+    }, 3000);
+
+    appartionTreeTemplate = setInterval(function() {
+      treeRandomApparitionTemplate = setTimeout(function() {
+        let randomTree = addRandomItems('div', 'trees', 'tree__random', 30);
+        randomTree.style.width = getRandomNumber(150, 350) + 'px';
+      }, getRandomNumber(3000, 7000));
+    }, 8000);
+
+    apparitionBallTemplate = setInterval(function() {
+      ballRandomApparitionTemplate = setTimeout(
+        addRandomBall,
+        getRandomNumber(1000, 2000)
+      );
+    }, 4000);
+
+    apparitionDogTemplate = setInterval(function() {
+      dogRandomApparitionTemplate = setTimeout(function() {
+        $squeeze.classList.add('is-throwing-back');
+        setTimeout(function() {
+          addRandomItems('div', 'enemy', 'dog', 4, true);
+          $squeeze.classList.remove('is-throwing-back');
+        }, 300);
+      }, getRandomNumber(1000, 4000));
+    }, 6000);
+  }
+
+  function clearAllIntervalAndTimeoutDuringRun() {
+    clearInterval(timerTemplate);
+    clearInterval(apparitionCrabTemplate);
+    clearInterval(appartionTreeTemplate);
+    clearInterval(apparitionBallTemplate);
+    clearInterval(apparitionDogTemplate);
+
+    clearTimeout(crabRandomApparitionTemplate);
+    clearTimeout(treeRandomApparitionTemplate);
+    clearTimeout(ballRandomApparitionTemplate);
+    clearTimeout(dogRandomApparitionTemplate);
+  }
+
+  function addRandomItems(type, class1, class2, speed, ennemy = false) {
+    const element = document.createElement(type);
+    element.classList.add(class1, class2);
+    $gameArea.appendChild(element);
+    setInterval(function() {
+      oxo.animation.move(element, 'left', 1, true);
+    }, speed);
+    oxo.elements.onLeaveScreenOnce(
+      element,
+      function() {
+        element.remove();
+      },
+      true
+    );
+    if (ennemy) {
+      brontisHitElt(element);
+    }
+    return element;
+  }
+
+  function addRandomBall() {
+    const $ball = document.createElement('div');
+    $ball.classList.add('enemy', 'ball');
+    $gameArea.appendChild($ball);
+    let positionX = $ball.offsetLeft;
+    setInterval(function() {
+      positionX -= 1;
+      $ball.style.left = positionX + 'px';
+    }, 6);
+    oxo.elements.onLeaveScreenOnce(
+      $ball,
+      function() {
+        $ball.remove();
+      },
+      true
+    );
+    brontisHitElt($ball);
+  }
+
+  // squeezie functions
+
+  function addSqueezie() {
     $squeeze.classList.add('is-running');
   }
 
-  function squeezeIsDead() {
+  function squeezieIsDead() {
     if (!isMuted) {
       $victorySound.play();
     }
     $musiqueDeFond.pause();
     $squeeze.classList.add('is-dead');
+    $squeezeLifes.style.display = 'none';
     setTimeout(function() {
       oxo.screens.loadScreen('end', function() {
         const $winDiv = document.querySelector('.win');
@@ -212,6 +277,7 @@ function game() {
     }, 2000);
   }
 
+  // Brontis functions
   function moveBrontis() {
     $brontis.classList.add('is-running');
     oxo.inputs.listenArrowKeys(function(key) {
@@ -270,7 +336,7 @@ function game() {
       $loseSound.play();
     }
     $musiqueDeFond.pause();
-
+    $brontisLifes.style.display = 'none';
     $brontis.classList.add('is-dead');
     clearAllIntervalAndTimeoutDuringRun();
     setTimeout(function() {
@@ -280,50 +346,6 @@ function game() {
         endPage();
       });
     }, 2000);
-  }
-
-  function getRandomNumber(min, max) {
-    let number;
-    do {
-      number = Math.floor(Math.random() * max);
-    } while (number < min);
-    return number;
-  }
-
-  function appearRandomItem(type, class1, class2, speed) {
-    const element = document.createElement(type);
-    element.classList.add(class1, class2);
-    $gameArea.appendChild(element);
-    setInterval(function() {
-      oxo.animation.move(element, 'left', 1, true);
-    }, speed);
-    oxo.elements.onLeaveScreenOnce(
-      element,
-      function() {
-        element.remove();
-      },
-      true
-    );
-    return element;
-  }
-
-  function appearRandomBall() {
-    const $ball = document.createElement('div');
-    $ball.classList.add('enemy', 'ball');
-    $gameArea.appendChild($ball);
-    let positionX = $ball.offsetLeft;
-    setInterval(function() {
-      positionX -= 1;
-      $ball.style.left = positionX + 'px';
-    }, 6);
-    oxo.elements.onLeaveScreenOnce(
-      $ball,
-      function() {
-        $ball.remove();
-      },
-      true
-    );
-    brontisHitElt($ball);
   }
 
   function brontisHitElt(element) {
@@ -339,7 +361,7 @@ function game() {
           lifeIllustration(brontisLifes, $brontisLifes);
 
           timeWhileBrontisInvincibleTimeout = setTimeout(
-            timeWhileBrontisInvincible,
+            brontisIsNoMoreInvincible,
             3000
           );
         } else {
@@ -349,7 +371,7 @@ function game() {
     });
   }
 
-  function timeWhileBrontisInvincible() {
+  function brontisIsNoMoreInvincible() {
     $brontis.classList.remove('is-flashing');
     brontisIsInvincible = false;
   }
@@ -378,6 +400,7 @@ function game() {
   function fight() {
     $musiqueDeFond.remove();
     $musiqueDeFond = document.querySelector('.fight-sound');
+    $musiqueDeFond.volume = 0.5;
     if (!isMuted) {
       $musiqueDeFond.play();
     }
@@ -385,12 +408,14 @@ function game() {
     removeEnemies();
     resetLifes();
     flashing();
-    moveDuringFight();
+    keyListenerDuringFight();
     setTimeout(function() {
       replaceBrontis();
       replaceSqueeze();
     }, 500);
+  }
 
+  function squeezieStartAttack() {
     squeezeThrowDogsFinalTemplate = setInterval(function() {
       $squeeze.classList.add('is-throwing');
       setTimeout(function() {
@@ -400,7 +425,7 @@ function game() {
     }, 2000);
   }
 
-  function moveDuringFight() {
+  function keyListenerDuringFight() {
     window.addEventListener('keyup', function(key) {
       switch (key.keyCode) {
         case 39:
@@ -451,12 +476,15 @@ function game() {
   }
 
   function flashing() {
-    const $overlay = document.createElement('div');
-    $overlay.classList.add('overlay');
-    $gameArea.appendChild($overlay);
+    const $overlay = document.querySelector('.overlay-fight');
+    const $fightText = document.querySelector('.fight-text');
+    $overlay.classList.add('is-visible');
+    $fightText.classList.add('is-visible');
     setTimeout(function() {
-      $overlay.remove();
-    }, 1000);
+      $overlay.classList.remove('is-visible');
+      $fightText.classList.remove('is-visible');
+      squeezieStartAttack();
+    }, 3000);
   }
 
   function replaceBrontis() {
@@ -532,7 +560,7 @@ function game() {
             squezeeIsInvincible = false;
           }, 2000);
         } else {
-          squeezeIsDead();
+          squeezieIsDead();
         }
       }
     });

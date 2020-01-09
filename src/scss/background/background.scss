@@ -13,7 +13,23 @@
   z-index: 0;
 }
 
-.button {
+.start-overlay {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  .countdown {
+    margin: auto;
+    font-size: 200px;
+    color: white;
+    letter-spacing: 10px;
+  }
+}
+
+.sound-control {
+  visibility: hidden;
   font-family: 'Spongebob';
   font-size: 1.5em;
   position: absolute;
@@ -183,7 +199,7 @@
   background-position: bottom;
   z-index: -1;
   transform: rotateZ(15deg);
-  animation: move-to-right 10s linear 10s forwards;
+  animation: move-to-right 10s linear 20s forwards;
 }
 
 .cloud {
@@ -211,11 +227,35 @@
   z-index: -1;
 }
 
-.overlay {
+.overlay-fight {
+  display: none;
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 2;
   background-color: black;
   animation: is-flashing 0.5s linear infinite;
+}
+
+.overlay-fight.is-visible {
+  display: block;
+}
+
+.fight-text {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  p {
+    margin: auto;
+    font-size: 200px;
+    color: white;
+    letter-spacing: 10px;
+  }
+}
+
+.fight-text.is-visible {
+  display: flex;
 }
