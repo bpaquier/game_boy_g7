@@ -176,8 +176,8 @@ function game() {
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(function() {
         addRandomItems('div', 'enemy', 'crab', 10, true);
-      }, getRandomNumber(1000, 2000));
-    }, 3000);
+      }, getRandomNumber(1500, 3000));
+    }, 4000);
 
     appartionTreeTemplate = setInterval(function() {
       treeRandomApparitionTemplate = setTimeout(function() {
@@ -210,6 +210,7 @@ function game() {
     clearInterval(appartionTreeTemplate);
     clearInterval(apparitionBallTemplate);
     clearInterval(apparitionDogTemplate);
+    clearInterval(squeezeThrowDogsFinalTemplate);
 
     clearTimeout(crabRandomApparitionTemplate);
     clearTimeout(treeRandomApparitionTemplate);
@@ -269,6 +270,7 @@ function game() {
     $musiqueDeFond.pause();
     $squeeze.classList.add('is-dead');
     $squeezeLifes.style.display = 'none';
+    clearAllIntervalAndTimeoutDuringRun();
     setTimeout(function() {
       oxo.screens.loadScreen('end', function() {
         const $winDiv = document.querySelector('.win');
