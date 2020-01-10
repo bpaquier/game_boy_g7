@@ -125,9 +125,10 @@ function game() {
           $squeeze.style.visibility = 'visible';
           $brontis.classList.add('is-flashing');
           brontisIsInvincible = true;
-          setTimeout(function() {
-            $brontis.style.display = 'block';
-          }, 1000);
+
+          $brontis.style.display = 'block';
+          $brontis.style.left = 50 + 'px';
+
           squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
           setTimeout(brontisIsNoMoreInvincible, 3000);
           if (!isFighting) {
