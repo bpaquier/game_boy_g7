@@ -118,18 +118,20 @@ function game() {
           isPaused = true;
           $brontis.style.display = 'none';
           $squeeze.style.visibility = 'hidden';
-          clearInterval(timerTemplate);
-          clearInterval(squeezeThrowDogsFinalTemplate);
+          clearAllIntervalAndTimeoutDuringRun();
         } else {
           isPaused = false;
-          $brontis.style.display = 'block';
+
           $squeeze.style.visibility = 'visible';
           $brontis.classList.add('is-flashing');
           brontisIsInvincible = true;
+          setTimeout(function() {
+            $brontis.style.display = 'block';
+          }, 1000);
           squeezeThrowDogsFinalTemplate = setInterval(squeezeThrowDogs, 2000);
           setTimeout(brontisIsNoMoreInvincible, 3000);
           if (!isFighting) {
-            timerTemplate = setInterval(timer, 1000);
+            itemsApparition();
           }
         }
       }
@@ -210,7 +212,7 @@ function game() {
     clearInterval(appartionTreeTemplate);
     clearInterval(apparitionBallTemplate);
     clearInterval(apparitionDogTemplate);
-    clearInterval(squeezeThrowDogsFinalTemplate);
+    //clearInterval(squeezeThrowDogsFinalTemplate);
 
     clearTimeout(crabRandomApparitionTemplate);
     clearTimeout(treeRandomApparitionTemplate);
