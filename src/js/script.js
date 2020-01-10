@@ -169,15 +169,15 @@ function game() {
   function itemsApparition() {
     timer();
     addRandomItems('div', 'trees', 'tree__random', 30);
-    addRandomItems('div', 'enemy', 'crab', 6, true);
+    addRandomItems('div', 'enemy', 'crab', 7, true);
     timerTemplate = setInterval(timer, 1000);
     $button.style.visibility = 'visible';
 
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(function() {
-        addRandomItems('div', 'enemy', 'crab', 6, true);
-      }, getRandomNumber(1500, 3000));
-    }, 4000);
+        addRandomItems('div', 'enemy', 'crab', 7, true);
+      }, getRandomNumber(1000, 2000));
+    }, 3000);
 
     appartionTreeTemplate = setInterval(function() {
       treeRandomApparitionTemplate = setTimeout(function() {
@@ -189,19 +189,19 @@ function game() {
     apparitionBallTemplate = setInterval(function() {
       ballRandomApparitionTemplate = setTimeout(
         addRandomBall,
-        getRandomNumber(3000, 7000)
+        getRandomNumber(1000, 3000)
       );
-    }, 9000);
+    }, 4000);
 
     apparitionDogTemplate = setInterval(function() {
-      dogRandomApparitionTemplate = setTimeout(function() {
-        $squeeze.classList.add('is-throwing-back');
-        setTimeout(function() {
-          addRandomItems('div', 'enemy', 'dog', 4, true);
-          $squeeze.classList.remove('is-throwing-back');
-        }, 300);
-      }, getRandomNumber(2000, 3000));
-    }, 5000);
+      //dogRandomApparitionTemplate = setTimeout(function() {
+      $squeeze.classList.add('is-throwing-back');
+      setTimeout(function() {
+        addRandomItems('div', 'enemy', 'dog', 3, true);
+        $squeeze.classList.remove('is-throwing-back');
+      }, 300);
+      //}, getRandomNumber(2000, 5000));
+    }, 7000);
   }
 
   function clearAllIntervalAndTimeoutDuringRun() {
@@ -215,7 +215,7 @@ function game() {
     clearTimeout(crabRandomApparitionTemplate);
     clearTimeout(treeRandomApparitionTemplate);
     clearTimeout(ballRandomApparitionTemplate);
-    clearTimeout(dogRandomApparitionTemplate);
+    //clearTimeout(dogRandomApparitionTemplate);
   }
 
   function addRandomItems(type, class1, class2, speed, ennemy = false) {
@@ -246,7 +246,7 @@ function game() {
     setInterval(function() {
       positionX -= 1;
       $ball.style.left = positionX + 'px';
-    }, 6);
+    }, 5);
     oxo.elements.onLeaveScreenOnce(
       $ball,
       function() {
@@ -368,7 +368,7 @@ function game() {
 
           timeWhileBrontisInvincibleTimeout = setTimeout(
             brontisIsNoMoreInvincible,
-            3000
+            2000
           );
         } else {
           brontisIsDead();

@@ -361,7 +361,7 @@ window.oxo = {
      */
     elementsAreColliding(element1Pos, element2Pos) {
       return (
-        element1Pos.x + 10 < element2Pos.x + element2Pos.width &&
+        element1Pos.x + 30 < element2Pos.x + element2Pos.width &&
         element1Pos.x + element1Pos.width - 10 > element2Pos.x &&
         element1Pos.y < element2Pos.y + element2Pos.height &&
         element1Pos.height + element1Pos.y - 15 > element2Pos.y
