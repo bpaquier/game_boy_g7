@@ -169,13 +169,13 @@ function game() {
   function itemsApparition() {
     timer();
     addRandomItems('div', 'trees', 'tree__random', 30);
-    addRandomItems('div', 'enemy', 'crab', 10, true);
+    addRandomItems('div', 'enemy', 'crab', 6, true);
     timerTemplate = setInterval(timer, 1000);
     $button.style.visibility = 'visible';
 
     apparitionCrabTemplate = setInterval(function() {
       crabRandomApparitionTemplate = setTimeout(function() {
-        addRandomItems('div', 'enemy', 'crab', 10, true);
+        addRandomItems('div', 'enemy', 'crab', 6, true);
       }, getRandomNumber(1500, 3000));
     }, 4000);
 
