@@ -201,7 +201,7 @@ function game() {
         $squeeze.classList.remove('is-throwing-back');
       }, 300);
       //}, getRandomNumber(2000, 5000));
-    }, 7000);
+    }, 7500);
   }
 
   function clearAllIntervalAndTimeoutDuringRun() {
